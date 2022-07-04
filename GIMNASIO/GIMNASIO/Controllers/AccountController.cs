@@ -107,7 +107,43 @@ namespace GIMNASIO.Controllers
         }
 
 
+        //llamar al registro admin
+        [HttpGet]
+        public IActionResult RegistroAdmin()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> RegistroAdmin(RegistroViewModel Rvm)
+        {
+            if (ModelState.IsValid)
+            {
+                var User = new Cliente()
+                {
+                    Rut = Rvm.Rut,
+                    Nombres = Rvm.Nombres,
+                    ApellidoP = Rvm.ApellidoP,
+                    ApellidoM = Rvm.ApellidoM,
+                    Correo = Rvm.Correo,
+                    Email = Rvm.Correo,
+                    Telefono = Rvm.Telefono,
+                    Direccion = Rvm.Direccion,
+                    Ciudad = Rvm.Ciudad,
+                    fecha = Rvm.fecha.Date,
+                    UserName = Rvm.Correo
+                };
+                var resultado = await _userManager.CreateAsync(User, Rvm.Pass);
+                if (resultado.Succeeded)
+                {
+                    //TODOS LOS USUARIOS REGISTRADOS SE INGRESEN CON ESE CLAIM
+                    await _userManager.AddClaimAsync(User, new System.Security.Claims.Claim("Admin", "10"));
+                    return RedirectToAction(nameof(Login));
+                }
+
+            }
+            return View();
+        }
 
 
 
