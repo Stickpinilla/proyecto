@@ -1,0 +1,61 @@
+﻿@model ICollection<Categoria>
+
+<h1>Listado de Categorias</h1>
+
+<h4>Categoria</h4>
+<br />
+<a asp-controller="Categoria" asp-action="CrearCategorias" class="white-text">
+    <i type="button" class="btn btn-success">Crear Categoria</i>
+</a>
+
+<br />
+@if (TempData["Mensaje"] != null)
+{
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    @TempData["Mensaje"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+
+<br />
+
+
+<div class="row justify-content-between">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var C in Model)
+            {
+                <tr>
+                    <th scope="row">@C.CategoriaId</th>
+                    <td>@C.Nombre</td>
+                    <td>
+                        <a asp-action="EliminarCategoria" asp-route-CategoriaId="@C.CategoriaId" class="white-text">
+                            <i type="button" class="btn btn-danger">Eliminar</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="EditarCategorias" asp-route-CategoriaId="@C.CategoriaId" class="white-text">
+                            <i type="button" class="btn btn-primary">Modificar</i>
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

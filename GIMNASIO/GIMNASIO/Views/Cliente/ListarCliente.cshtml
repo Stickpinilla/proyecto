@@ -1,0 +1,66 @@
+﻿
+@model ICollection<Cliente>
+
+<h1>Listar Cliente</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                id
+            </th>
+            <th>
+                Nombres
+            </th>
+            <th>
+                Apellido Materno
+            </th>
+            <th>
+                Apellido Paterno
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Fecha
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var C in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => C.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.Nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.ApellidoM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.ApellidoP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.Correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.Direccion)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.fecha)
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

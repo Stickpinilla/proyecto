@@ -1,0 +1,114 @@
+﻿@model IndexViewModel
+
+<h1>Listar Productos</h1>
+<br />
+<a asp-controller="Producto" asp-action="CrearProducto" class="white-text">
+    <i type="button" class="btn btn-success">Crear Producto</i>
+</a>
+<br />
+<br />
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>}
+
+<br />
+
+<!--
+<div class="row justify-content-between">
+    @foreach (var P in Model.ListaProductos)
+    {
+
+        <div class="card col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">
+            <img src="~/imagen/@P.imagen" class="card-img-top" alt="...">
+            <div class="card-body text-center">
+                <h5 class="card-title">Nombre: @P.ProductoNombre</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Descripción: @P.ProductoDesc</h6>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Precio:
+                    @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.ProductoPrecio)
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted">Estado: @P.Estado.EstadoNombre</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Categoria: @P.Categoria.Nombre</h6>
+            </div>
+        </div>
+    }
+</div>
+-->
+
+<div class="row justify-content-between">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var P in Model.ListaProductos)
+            {
+                <tr>
+                    <th scope="row">
+                        <img src="~/imagen/@P.imagen" width="30" />
+                    </th>
+                    <td>@P.ProductoNombre</td>
+                    <td>@P.ProductoDesc</td>
+                    <td>@P.ProductoPrecio</td>
+                    <td>@P.Estado.EstadoNombre</td>
+                    <td>@P.Categoria.Nombre</td>
+                    <td>
+                        <a asp-action="EliminarProducto" asp-route-ProductoId="@P.ProductoId" class="white-text">
+                            <i type="button" class="btn btn-danger">Eliminar</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="EditarCategorias" asp-route-CategoriaId="" class="white-text">
+                            <i type="button" class="btn btn-primary">Modificar</i>
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br />
+<nav class="row justify-content-center" aria-label="Page navigation example">
+    <div class="justify-content-center">
+        <ul class="pagination">
+            @if (Model.Pagina != 0 && Model.Pagina != 1)
+            {
+                <li class="page-item"><a class="page-link" asp-action="ListarProductos" asp-route-Page="@TempData["PreviousPage"]">Anterior</a></li>
+            }
+            else
+            {
+                <li class="page-item disabled"><a class="page-link">Anterior</a></li>
+            }
+            @for (int i = 1; i <= Model.CantidadPagina; i++)
+            {
+                <li class="page-item"><a class="page-link" asp-action="ListarProductos" asp-route-Page="@i">@i</a></li>
+            }
+            @if (Model.Pagina != Model.CantidadPagina)
+            {
+                <li class="page-item"><a class="page-link" asp-action="ListarProductos" asp-route-Page="@TempData["NextPage"]">Siguiente</a></li>
+            }
+            else
+            {
+                <li class="page-item disabled"><a class="page-link">Siguiente</a></li>
+            }
+        </ul>
+    </div>
+</nav>
+<br />
