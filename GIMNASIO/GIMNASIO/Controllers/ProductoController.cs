@@ -122,7 +122,58 @@ namespace GIMNASIO.Controllers
         }
 
 
+        //Editar Producto
+        public IActionResult ModificarProducto(int ProductoId)
+        {
+            ViewData["EstadoId"] = new SelectList(_context.tblEstados.ToList(), "EstadoId", "EstadoNombre");
+            ViewData["CategoriaId"] = new SelectList(_context.tblCategorias.ToList(), "CategoriaId", "Nombre");
+            var P = _context.tblProductos.Where(p => p.ProductoId.Equals(ProductoId)).FirstOrDefault();
+            return View(P);
+        }
 
+        //Editar
+        [HttpPost]
+        public async Task<IActionResult> ModificarProducto(Producto P)
+        {
+            if (ModelState.IsValid)
+            {
+                var pModificada = _context.tblProductos.Where(p => p.ProductoId.Equals(P.ProductoId)).FirstOrDefault();
+                if (P.ImagenFile == null)
+                {
+                    P.imagen = "NoImagen.png";
+                }
+                else
+                {
+                    //Para La Imagen
+                    string wwwRootPath = _hostEnviroment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(P.ImagenFile.FileName);
+                    string extension = Path.GetExtension(P.ImagenFile.FileName);
+                    P.imagen = fileName + DateTime.Now.ToString("ddMMyyyyHHmmss") + extension;
+
+                    string path = Path.Combine(wwwRootPath + "/imagen/" + P.imagen);
+                    using (var fileStrem = new FileStream(path, FileMode.Create))
+                    {
+                        await P.ImagenFile.CopyToAsync(fileStrem);
+                    }
+                }
+
+                pModificada.ProductoNombre = P.ProductoNombre;
+                pModificada.ProductoDesc = P.ProductoDesc;
+                pModificada.ProductoPrecio = P.ProductoPrecio;
+                pModificada.imagen = P.imagen;
+                pModificada.EstadoId = P.EstadoId;
+                pModificada.CategoriaId = P.CategoriaId;
+                await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Producto Modificado Exitosamente!";
+                return RedirectToAction(nameof(ListarProductos));
+
+            }
+            else
+            {
+                return View(P);
+            }
+
+        }
 
 
     }
