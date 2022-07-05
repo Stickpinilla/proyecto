@@ -12,5 +12,10 @@ namespace GIMNASIO.Controllers
         {
             return View();
         }
+
+        public IActionResult RegistroEntrenador()
+        {
+            return View();
+        }
     }
 }

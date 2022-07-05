@@ -41,6 +41,7 @@ namespace GIMNASIO
             {
                 options.AddPolicy("PolicyCliente", pol => pol.RequireClaim("Cliente"));
                 options.AddPolicy("PolicyAdmin", pol => pol.RequireClaim("Admin"));
+                options.AddPolicy("PolicyEntrenador", pol => pol.RequireClaim("Entrenador"));
             });
 
             //services.AddScoped(carro => CarroCompra.GetCarroCompra(carro));
