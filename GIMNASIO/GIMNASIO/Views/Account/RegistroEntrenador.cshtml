@@ -1,5 +1,84 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<div class="container">
+    @model RegistroViewModel
+
+    @{
+        ViewData["Title"] = "Registro";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
+        <h2 href="" class="white-text mx-3">Registrarse</h2>
+        <a asp-action="" class="link-dark"><i class="fas fa-plus-circle fa-lg mr-2"></i>Iniciar Sesion</a>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <form class="col-md-12" asp-action="RegistroAdmin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Rut" class="control-label"></label>
+                        <input asp-for="Rut" class="form-control" />
+                        <span asp-validation-for="Rut" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nombres" class="control-label"></label>
+                        <input asp-for="Nombres" class="form-control" />
+                        <span asp-validation-for="Nombres" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ApellidoP" class="control-label"></label>
+                        <input asp-for="ApellidoP" class="form-control" />
+                        <span asp-validation-for="ApellidoP" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ApellidoM" class="control-label"></label>
+                        <input asp-for="ApellidoM" class="form-control" />
+                        <span asp-validation-for="ApellidoM" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Pass" class="control-label"></label>
+                        <input asp-for="Pass" class="form-control" />
+                        <span asp-validation-for="Pass" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Correo" class="control-label"></label>
+                        <input asp-for="Correo" class="form-control" />
+                        <span asp-validation-for="Correo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Direccion" class="control-label"></label>
+                        <input asp-for="Direccion" class="form-control" />
+                        <span asp-validation-for="Direccion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Ciudad" class="control-label"></label>
+                        <input asp-for="Ciudad" class="form-control" />
+                        <span asp-validation-for="Ciudad" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Telefono" class="control-label"></label>
+                        <input asp-for="Telefono" class="form-control" />
+                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="fecha" class="control-label"></label>
+                        <input asp-for="fecha" type="date" class="form-control" />
+                        <span asp-validation-for="fecha" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <input type="submit" value="Registrarse" class="btn btn-outline-info btn-block" />
+
+            </div>
+        </form>
+    </div>
+
+</div>
