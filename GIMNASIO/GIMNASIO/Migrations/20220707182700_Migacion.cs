@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GIMNASIO.Migrations
 {
-    public partial class CategoriasUsuarios : Migration
+    public partial class Migacion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,16 @@ namespace GIMNASIO.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Rut = table.Column<string>(nullable: true),
+                    Nombres = table.Column<string>(nullable: true),
+                    ApellidoP = table.Column<string>(nullable: true),
+                    ApellidoM = table.Column<string>(nullable: true),
+                    Telefono = table.Column<string>(nullable: true),
+                    Direccion = table.Column<string>(nullable: true),
+                    Ciudad = table.Column<string>(nullable: true),
+                    Correo = table.Column<string>(nullable: true),
+                    fecha = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,6 +66,32 @@ namespace GIMNASIO.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblCategorias", x => x.CategoriaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblEstados",
+                columns: table => new
+                {
+                    EstadoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EstadoNombre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblEstados", x => x.EstadoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblMetodoPago",
+                columns: table => new
+                {
+                    MetodoPagoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MetodoNombre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblMetodoPago", x => x.MetodoPagoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,6 +200,57 @@ namespace GIMNASIO.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "tblProductos",
+                columns: table => new
+                {
+                    ProductoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductoNombre = table.Column<string>(nullable: true),
+                    ProductoPrecio = table.Column<int>(nullable: false),
+                    ProductoDesc = table.Column<string>(nullable: true),
+                    imagen = table.Column<string>(nullable: true),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    EstadoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblProductos", x => x.ProductoId);
+                    table.ForeignKey(
+                        name: "FK_tblProductos_tblCategorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "tblCategorias",
+                        principalColumn: "CategoriaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tblProductos_tblEstados_EstadoId",
+                        column: x => x.EstadoId,
+                        principalTable: "tblEstados",
+                        principalColumn: "EstadoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblCarroItem",
+                columns: table => new
+                {
+                    CarroItemId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarroCantidad = table.Column<int>(nullable: false),
+                    ProductoId = table.Column<int>(nullable: false),
+                    CarroCompraId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblCarroItem", x => x.CarroItemId);
+                    table.ForeignKey(
+                        name: "FK_tblCarroItem_tblProductos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "tblProductos",
+                        principalColumn: "ProductoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -203,6 +289,21 @@ namespace GIMNASIO.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblCarroItem_ProductoId",
+                table: "tblCarroItem",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblProductos_CategoriaId",
+                table: "tblProductos",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblProductos_EstadoId",
+                table: "tblProductos",
+                column: "EstadoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -223,13 +324,25 @@ namespace GIMNASIO.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "tblCategorias");
+                name: "tblCarroItem");
+
+            migrationBuilder.DropTable(
+                name: "tblMetodoPago");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "tblProductos");
+
+            migrationBuilder.DropTable(
+                name: "tblCategorias");
+
+            migrationBuilder.DropTable(
+                name: "tblEstados");
         }
     }
 }
