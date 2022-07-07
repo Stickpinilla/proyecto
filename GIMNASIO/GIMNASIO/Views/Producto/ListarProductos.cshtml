@@ -2,7 +2,7 @@
 
 <h1>Listar Productos</h1>
 <br />
-<a asp-controller="Producto" asp-action="CrearProducto" class="white-text">
+<a asp-controller="Producto" asp-action="CrearProducto" class="white-text text-center">
     <i type="button" class="btn btn-success">Crear Producto</i>
 </a>
 <br />
@@ -18,27 +18,6 @@
 
 <br />
 
-<!--
-<div class="row justify-content-between">
-    @foreach (var P in Model.ListaProductos)
-    {
-
-        <div class="card col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">
-            <img src="~/imagen/@P.imagen" class="card-img-top" alt="...">
-            <div class="card-body text-center">
-                <h5 class="card-title">Nombre: @P.ProductoNombre</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Descripción: @P.ProductoDesc</h6>
-                <h6 class="card-subtitle mb-2 text-muted">
-                    Precio:
-                    @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.ProductoPrecio)
-                </h6>
-                <h6 class="card-subtitle mb-2 text-muted">Estado: @P.Estado.EstadoNombre</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Categoria: @P.Categoria.Nombre</h6>
-            </div>
-        </div>
-    }
-</div>
--->
 
 <div class="row justify-content-between">
     <table class="table">
@@ -46,7 +25,6 @@
             <tr>
                 <th scope="col">Imagen</th>
                 <th scope="col">Producto</th>
-                <th scope="col">Descripcion</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Categoria</th>
@@ -62,7 +40,6 @@
                         <img src="~/imagen/@P.imagen" width="30" />
                     </th>
                     <td>@P.ProductoNombre</td>
-                    <td>@P.ProductoDesc</td>
                     <td>@P.ProductoPrecio</td>
                     <td>@P.Estado.EstadoNombre</td>
                     <td>@P.Categoria.Nombre</td>
