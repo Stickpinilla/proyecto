@@ -2,31 +2,37 @@
 
     @model IndexViewModel
 
-    <div data-spy="scroll" style="border-radius: 10px; border-color: black; background-color: #00c6c6" class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
-        <h2 id="productos" style="font-family: cursive;" href="" class="white-text mx-3"><strong>PRODUCTOS</strong></h2>
+    <div class="container">
+        <h2 class="text-center">Productos Disponibles</h2>
+        <hr>
     </div>
 
     <div class="row justify-content-between">
         @foreach (var P in Model.ListaProductos)
         {
 
-            <div class="card col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">
-                <a asp-controller="Home" asp-action="Producto" asp-route-ProductoId="@P.ProductoId">
-                    <img src="~/imagen/@P.imagen" class="card-img-top" alt="..." style="height:300px;">
-                </a>
-                <div class="card-body text-center">
+            <div class="card card-producto col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">
+                <img src="~/imagen/@P.imagen" class="card-img-top" width="300" height="300">
+                <div class="card-body">
                     <h5 class="card-title">Nombre: @P.ProductoNombre</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Descripción: @P.ProductoDesc</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Estado: @P.Estado.EstadoNombre</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Categoria: @P.Categoria.Nombre</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        Precio:
+                    <p class="card-text detalles-card-producto">@P.ProductoDesc</p>
+                    <p class="card-text text-center">
                         @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.ProductoPrecio)
-                    </h6>
+                    </p>
                 </div>
 
-                <div class="row float-left justify-content-center mb-3">
-                    <a style="font-family: cursive;" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId" class="btn btn-warning" id="liveToastBtn">Agregar Al Carro</a>
+                <div class="row justify-content-around">
+                    <div class="col-4">
+                        <a class="btn btn-success" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId">
+                            <i class="fa-solid fa-cart-arrow-down"></i>
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-primary" asp-controller="Home" asp-action="Producto" asp-route-ProductoId="@P.ProductoId">
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+
+                    </div>
                 </div>
 
             </div>
