@@ -1,5 +1,7 @@
 ﻿using GIMNASIO.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,46 @@ namespace GIMNASIO.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _hostEnviroment;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(AppDbContext context, IWebHostEnvironment hostEnviroment)
         {
-            _logger = logger;
+            _context = context;
+            _hostEnviroment = hostEnviroment;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page)
         {
-            return View();
+            IndexViewModel indexViewModel = new IndexViewModel();
+
+            if (page == 0)
+            {
+                indexViewModel.Pagina = 1;
+            }
+            else
+            {
+                indexViewModel.Pagina = page;
+            }
+
+            int muestra = 6;
+            int cantidad = _context.tblProductos.ToList().Count / muestra;
+            if (cantidad % muestra == 0)
+            {
+                indexViewModel.CantidadPagina = cantidad;
+            }
+            else
+            {
+                indexViewModel.CantidadPagina = cantidad + 1;
+            }
+
+            indexViewModel.ListaProductos = _context.tblProductos.Include(e => e.Categoria)
+                .Include(e => e.Estado)
+                .Skip((indexViewModel.Pagina - 1) * muestra)
+                .Take(6).ToList();
+            TempData["NextPage"] = indexViewModel.Pagina + 1;
+            TempData["PreviusPage"] = indexViewModel.Pagina - 1;
+            return View(indexViewModel);
         }
 
         public IActionResult Privacy()
@@ -33,5 +65,14 @@ namespace GIMNASIO.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public IActionResult Producto(int ProductoId)
+        {
+            return View(_context.tblProductos.Where(p => p.ProductoId.Equals(ProductoId)).
+                Include(e => e.Categoria)
+                .Include(e => e.Estado).ToList());
+        }
+
     }
 }

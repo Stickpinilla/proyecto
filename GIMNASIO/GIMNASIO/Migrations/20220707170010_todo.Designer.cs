@@ -4,43 +4,22 @@ using GIMNASIO.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220707170010_todo")]
+    partial class todo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("GIMNASIO.Models.CarroItem", b =>
-                {
-                    b.Property<int>("CarroItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CarroCantidad")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CarroCompraId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CarroItemId");
-
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("tblCarroItem");
-                });
 
             modelBuilder.Entity("GIMNASIO.Models.Categoria", b =>
                 {
@@ -162,21 +141,6 @@ namespace GIMNASIO.Migrations
                     b.HasKey("EstadoId");
 
                     b.ToTable("tblEstados");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.MetodoPago", b =>
-                {
-                    b.Property<int>("MetodoPagoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MetodoNombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MetodoPagoId");
-
-                    b.ToTable("tblMetodoPago");
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Producto", b =>
@@ -342,15 +306,6 @@ namespace GIMNASIO.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.CarroItem", b =>
-                {
-                    b.HasOne("GIMNASIO.Models.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Producto", b =>

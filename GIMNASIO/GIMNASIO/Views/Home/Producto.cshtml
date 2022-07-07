@@ -1,0 +1,32 @@
+﻿<div class="container">
+    @model ICollection<Producto>
+
+
+    <div>
+        @foreach (var P in Model)
+        {
+            <div class="card border border-0" style="background-color: transparent;">
+                <div class="row no-gutters">
+                    <div class="col-md-7">
+                        <img src="~/imagen/@P.imagen" class="card-img-top" style="height:600px;" alt="...">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-title" style="margin-left: 125px; margin-top: 125px;">
+                            <h5 style="font-family: cursive;" class="card-title">@P.ProductoNombre</h5>
+                            <p style="font-family: cursive; text-align:left;">@P.ProductoDesc</p>
+                            <p style="font-family: cursive; text-align:left">Talla:  @P.Estado.EstadoNombre</p>
+                            <p style="font-family: cursive; text-align:left">Talla:  @P.Categoria.Nombre</p>
+                            <p style="font-family: cursive; text-align:left">
+                                Precio:
+                                @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.ProductoPrecio)
+                            </p>
+                            <p> <a style="font-family: cursive;" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId" class="btn btn-warning">Agregar Al Carro</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
