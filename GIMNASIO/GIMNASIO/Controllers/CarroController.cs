@@ -21,7 +21,7 @@ namespace GIMNASIO.Controllers
 
         public IActionResult Index()
         {
-
+            ViewData["MetodoPagoId"] = new SelectList(_context.tblMetodoPago.ToList(), "MetodoPagoId", "MetodoNombre");
             CarroCompraViewModel carroCompraViewModel = new CarroCompraViewModel()
             {
                 carroItems = _carro.GetCarroItems(),

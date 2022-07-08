@@ -40,17 +40,26 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="text-right" colspan="7">
+                   
+                    <td class="text-right" colspan="8">
                         Total: @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", Model.TotalCarro)
-                    </td>
-                    <td class="text-right" colspan="7">
-                        <a asp-controller="Pedido" asp-action="Index" class="btn btn-info">Finalizar Compra</a>
                     </td>
                 </tr>
             </tfoot>
         </table>
     </div>
 
+    <div>
+            <label asp-for="MetodoPagoId" class="control-label"></label>
+            <select asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></select>
+    </div>
+
+    <br />
+    <div>
+        <i class="text-right" colspan="7">
+           <a asp-controller="Pedido" asp-action="Index" class="btn btn-info">Finalizar Compra</a>
+        </i>
+    </div>
 
 
 </div>
