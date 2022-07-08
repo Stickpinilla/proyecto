@@ -1,10 +1,21 @@
-﻿<div class="container">
+﻿@model IndexViewModel
+@inject CarroCompra _carro
 
-    @model IndexViewModel
+<div class="container">
 
-    <div class="container">
-        <h2 class="text-center">Productos Disponibles</h2>
+
+
+    <div class="container text-center">
+        <h2 >Productos Disponibles</h2>
         <hr>
+        <a class="btn btn-primary mb-5"
+           asp-controller="Carro" asp-action="Index">Ver Carrito
+            <i class="fas fa-shopping-cart fa-1x"></i>
+            @{
+                _carro.CarroItems = _carro.GetCarroItems();
+            }
+            <span class="badge badge-danger">@_carro.CarroItems.Count</span>
+        </a>
     </div>
 
     <div class="row justify-content-between">
@@ -14,14 +25,14 @@
             <div class="card card-producto col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">
                 <img src="~/imagen/@P.imagen" class="card-img-top" width="300" height="300">
                 <div class="card-body">
-                    <h5 class="card-title">Nombre: @P.ProductoNombre</h5>
+                    <h5 class="card-title card-title-producto">Nombre: @P.ProductoNombre</h5>
                     <p class="card-text detalles-card-producto">@P.ProductoDesc</p>
                     <p class="card-text text-center">
                         @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.ProductoPrecio)
                     </p>
                 </div>
 
-                <div class="row justify-content-around">
+                <div class="row justify-content-around botones-productos">
                     <div class="col-4">
                         <a class="btn btn-success" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId">
                             <i class="fa-solid fa-cart-arrow-down"></i>

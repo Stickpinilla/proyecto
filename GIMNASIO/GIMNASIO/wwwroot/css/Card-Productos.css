@@ -5,3 +5,11 @@
 .detalles-card-producto {
     font-size: small;
 }
+
+.card-title{
+    height: 48px;
+}
+
+.botones-productos {
+    padding-bottom: 1.25rem;
+}
