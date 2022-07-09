@@ -1,5 +1,4 @@
 ﻿@model IndexViewModel
-@inject CarroCompra _carro
 
 <div class="container">
 
@@ -8,14 +7,6 @@
     <div class="container text-center">
         <h2 >Productos Disponibles</h2>
         <hr>
-        <a class="btn btn-primary mb-5"
-           asp-controller="Carro" asp-action="Index">Ver Carrito
-            <i class="fas fa-shopping-cart fa-1x"></i>
-            @{
-                _carro.CarroItems = _carro.GetCarroItems();
-            }
-            <span class="badge badge-danger">@_carro.CarroItems.Count</span>
-        </a>
     </div>
 
     <div class="row justify-content-between">

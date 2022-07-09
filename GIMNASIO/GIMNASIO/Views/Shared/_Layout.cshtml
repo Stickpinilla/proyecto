@@ -4,7 +4,7 @@
 @inject SignInManager<Cliente> signInManager
 @inject UserManager<Cliente> userManager
 @inject AppDbContext _context
-
+@inject CarroCompra _carro
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,6 +68,24 @@
                     </ul>
                 </div>
 
+                @if (signInManager.IsSignedIn(User))
+                {
+                    var Acceso = User.Claims.Where(x => x.Type == "Admin" || x.Type == "Entrenador").FirstOrDefault();
+                    if (Acceso != null)
+                    {
+                        <!--Carro de compra-->
+                        <div>
+                            <a class="text-reset me-3 mr-3"
+                               asp-controller="Carro" asp-action="Index">
+                                <i class="fas fa-shopping-cart fa-2x"></i>
+                                @{
+                                    _carro.CarroItems = _carro.GetCarroItems();
+                                }
+                                <span class="badge badge-danger">@_carro.CarroItems.Count</span>
+                            </a>
+                        </div>
+                    }
+                }
 
 
             </div>
