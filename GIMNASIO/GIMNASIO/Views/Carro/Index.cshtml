@@ -2,12 +2,13 @@
     @model CarroCompraViewModel
 
     <div class="container text-center">
-        <h2 >Carrito de compras</h2>
+        <h2>Carrito de compras</h2>
         <hr>
-        <a asp-controller="Home" asp-action="Index" class="btn btn-success"><i class="fa-solid fa-cart-plus"></i>Agregar</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-success pb-2"><i class="fa-solid fa-cart-plus"></i>Agregar</a>
 
     </div>
 
+    <br>
 
     <div>
         <table class="table table-striped ">
@@ -40,7 +41,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                   
+
                     <td class="text-right" colspan="8">
                         Total: @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", Model.TotalCarro)
                     </td>
@@ -49,16 +50,15 @@
         </table>
     </div>
 
-    <div>
+    <div class="row justify-content-end">
+        <div class="col-md-4 offset-md-4">
             <label asp-for="MetodoPagoId" class="control-label"></label>
             <select asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></select>
-    </div>
+        </div>
 
-    <br />
-    <div>
-        <i class="text-right" colspan="7">
-           <a asp-controller="Pedido" asp-action="Index" class="btn btn-info">Finalizar Compra</a>
-        </i>
+        <div class="col-md-auto">
+            <a asp-controller="Pedido" style="margin-top: 30px" asp-action="Index" class="btn btn-info">Finalizar Compra</a>
+        </div>
     </div>
 
 
