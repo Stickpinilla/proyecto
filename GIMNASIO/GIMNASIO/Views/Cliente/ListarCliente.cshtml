@@ -1,40 +1,65 @@
 ﻿
 @model ICollection<Cliente>
 
-<div class="container text-center">
-    <h2>Lista de Clientes</h2>
-    <hr>
-    <a asp-controller="Cliente" asp-action="CrearCliente" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
-</div>
+<h1>Listar Cliente</h1>
 
-<br>
-
-<table class="table table-striped">
-    <thead class="text-center thead-dark">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
-            <td>Rut</td>
-            <td>Nombre</td>
-            <td>Correo</td>
-            <td colspan="2">Editar/Eliminar</td>
-            <td>Membresia</td>
+            <th>
+                id
+            </th>
+            <th>
+                Nombres
+            </th>
+            <th>
+                Apellido Materno
+            </th>
+            <th>
+                Apellido Paterno
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Fecha
+            </th>
+            <th></th>
         </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody>
         @foreach (var C in Model)
         {
-        <tr class="text-center">
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => C.Rut)
+                @Html.DisplayFor(modelItem => C.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => C.Nombres) @Html.DisplayFor(modelItem => C.ApellidoM) @Html.DisplayFor(modelItem => C.ApellidoP)
+                @Html.DisplayFor(modelItem => C.Nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.ApellidoM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.ApellidoP)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => C.Correo)
             </td>
-            <td><a  asp-action="ModificarCliente" asp-route-Id="@C.Id" class="ml-4 btn btn-warning text-white"><i class="fa-solid fa-file-pen"></i></a></td>
-            <td><a  asp-action="EliminarCliente" asp-route-Id="@C.Id" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
-            <td><a asp-controller="Membresia" asp-action="ObtenerMembresias" asp-route-Id="@C.Id" class="btn btn-primary">Membresía</a></td>
+            <td>
+                @Html.DisplayFor(modelItem => C.Direccion)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => C.fecha)
+
+            </td>
         </tr>
         }
     </tbody>
