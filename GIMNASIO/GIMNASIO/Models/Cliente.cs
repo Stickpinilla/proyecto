@@ -25,8 +25,12 @@ namespace GIMNASIO.Models
 
         public string Correo { get; set; }
 
+        public string Tipo { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime fecha { get; set; }
+
+        
     }
 }

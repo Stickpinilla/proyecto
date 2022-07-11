@@ -92,7 +92,8 @@ namespace GIMNASIO.Controllers
                     Direccion = Rvm.Direccion,
                     Ciudad = Rvm.Ciudad,
                     fecha = Rvm.fecha.Date,
-                    UserName = Rvm.Correo
+                    UserName = Rvm.Correo,
+                    Tipo = "Cliente"
                 };
                 var resultado = await _userManager.CreateAsync(User, Rvm.Pass);
                 if (resultado.Succeeded)

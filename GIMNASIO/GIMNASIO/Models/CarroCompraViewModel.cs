@@ -15,5 +15,8 @@ namespace GIMNASIO.Models
         [Display(Name = "Metodo de Pago")]
         public int MetodoPagoId { get; set; }
         public MetodoPago MetodoPago { get; set; }
+
+        public int id { get; set; }
+        public Cliente cliente { get; set; }
     }
 }

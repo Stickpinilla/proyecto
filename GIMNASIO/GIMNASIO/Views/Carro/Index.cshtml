@@ -56,6 +56,11 @@
             <select asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></select>
         </div>
 
+        <div class="col-md-4 offset-md-4">
+            <label asp-for="id" class="control-label"></label>
+            <select asp-for="id" class="form-control" asp-items="ViewBag.id"></select>
+        </div>
+
         <div class="col-md-auto">
             <a asp-controller="Pedido" style="margin-top: 30px" asp-action="Index" class="btn btn-info">Finalizar Compra</a>
         </div>

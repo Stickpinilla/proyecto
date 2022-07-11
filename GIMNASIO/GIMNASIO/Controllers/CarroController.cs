@@ -23,7 +23,7 @@ namespace GIMNASIO.Controllers
         public IActionResult Index()
         {
             ViewData["MetodoPagoId"] = new SelectList(_context.tblMetodoPago.ToList(), "MetodoPagoId", "MetodoNombre");
-            ViewData["Id"] = new SelectList(_context.UserClaims.Include( e => e.).ToList(), "Id", "MetodoNombre");
+            ViewData["Tipo"] = new SelectList(_context.Users.Where(t => t.Tipo.Equals("Cliente")).ToList(), "id", "Rut");
             CarroCompraViewModel carroCompraViewModel = new CarroCompraViewModel()
             {
                 carroItems = _carro.GetCarroItems(),
@@ -35,6 +35,7 @@ namespace GIMNASIO.Controllers
         public RedirectToActionResult Add(int ProductoId)
         {
             ViewData["MetodoPagoId"] = new SelectList(_context.tblMetodoPago.ToList(), "MetodoPagoId", "MetodoNombre");
+            ViewData["id"] = new SelectList(_context.Users.Where(t => t.Tipo.Equals("Cliente")).ToList(), "id", "Rut");
             var P = _context.tblProductos.Where(p => p.ProductoId == ProductoId).FirstOrDefault();
             if (P != null)
             {
