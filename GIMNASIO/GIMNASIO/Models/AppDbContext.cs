@@ -29,6 +29,11 @@ namespace GIMNASIO.Models
         public DbSet<CarroItem> tblCarroItem { get; set; }
 
         public DbSet<MetodoPago> tblMetodoPago { get; set; }
-        
+
+        public DbSet<MetodoPagoMembresia> tblMetodoPagoMembresia { get; set; }
+        public DbSet<TipoMembresia> tblTipoMembresia { get; set; }
+        public DbSet<EstadoMembresia> tblEstadoMembresia { get; set; }
+
+        public DbSet<Membresia> tblMembresia { get; set; }
     }
 }
