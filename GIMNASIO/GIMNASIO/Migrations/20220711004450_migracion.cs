@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GIMNASIO.Migrations
 {
-    public partial class Migacion : Migration
+    public partial class migracion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,19 @@ namespace GIMNASIO.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tblEstadoMembresia",
+                columns: table => new
+                {
+                    EstadoMembresiaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EstadoMembresiaNombre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblEstadoMembresia", x => x.EstadoMembresiaId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tblEstados",
                 columns: table => new
                 {
@@ -92,6 +105,32 @@ namespace GIMNASIO.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblMetodoPago", x => x.MetodoPagoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblMetodoPagoMembresia",
+                columns: table => new
+                {
+                    MetodoPagoMembresiaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MetodoPagoMembresiaNombre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblMetodoPagoMembresia", x => x.MetodoPagoMembresiaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblTipoMembresia",
+                columns: table => new
+                {
+                    TipoMembresiaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TipoMembresiaNombre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblTipoMembresia", x => x.TipoMembresiaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,6 +270,41 @@ namespace GIMNASIO.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tblMembresia",
+                columns: table => new
+                {
+                    MembresiaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaComienzo = table.Column<DateTime>(nullable: false),
+                    FechaTermino = table.Column<DateTime>(nullable: false),
+                    EstadoMembresiaId = table.Column<int>(nullable: true),
+                    TipoMembresiaId = table.Column<int>(nullable: true),
+                    ClienteId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblMembresia", x => x.MembresiaId);
+                    table.ForeignKey(
+                        name: "FK_tblMembresia_AspNetUsers_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tblMembresia_tblEstadoMembresia_EstadoMembresiaId",
+                        column: x => x.EstadoMembresiaId,
+                        principalTable: "tblEstadoMembresia",
+                        principalColumn: "EstadoMembresiaId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tblMembresia_tblTipoMembresia_TipoMembresiaId",
+                        column: x => x.TipoMembresiaId,
+                        principalTable: "tblTipoMembresia",
+                        principalColumn: "TipoMembresiaId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tblCarroItem",
                 columns: table => new
                 {
@@ -296,6 +370,21 @@ namespace GIMNASIO.Migrations
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tblMembresia_ClienteId",
+                table: "tblMembresia",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblMembresia_EstadoMembresiaId",
+                table: "tblMembresia",
+                column: "EstadoMembresiaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblMembresia_TipoMembresiaId",
+                table: "tblMembresia",
+                column: "TipoMembresiaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tblProductos_CategoriaId",
                 table: "tblProductos",
                 column: "CategoriaId");
@@ -327,16 +416,28 @@ namespace GIMNASIO.Migrations
                 name: "tblCarroItem");
 
             migrationBuilder.DropTable(
+                name: "tblMembresia");
+
+            migrationBuilder.DropTable(
                 name: "tblMetodoPago");
+
+            migrationBuilder.DropTable(
+                name: "tblMetodoPagoMembresia");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "tblProductos");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "tblProductos");
+                name: "tblEstadoMembresia");
+
+            migrationBuilder.DropTable(
+                name: "tblTipoMembresia");
 
             migrationBuilder.DropTable(
                 name: "tblCategorias");

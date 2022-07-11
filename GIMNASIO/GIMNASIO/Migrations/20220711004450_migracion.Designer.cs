@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220707182700_Migacion")]
-    partial class Migacion
+    [Migration("20220711004450_migracion")]
+    partial class migracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -166,6 +166,54 @@ namespace GIMNASIO.Migrations
                     b.ToTable("tblEstados");
                 });
 
+            modelBuilder.Entity("GIMNASIO.Models.EstadoMembresia", b =>
+                {
+                    b.Property<int>("EstadoMembresiaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EstadoMembresiaNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EstadoMembresiaId");
+
+                    b.ToTable("tblEstadoMembresia");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.Membresia", b =>
+                {
+                    b.Property<int>("MembresiaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClienteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("EstadoMembresiaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaComienzo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaTermino")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TipoMembresiaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MembresiaId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("EstadoMembresiaId");
+
+                    b.HasIndex("TipoMembresiaId");
+
+                    b.ToTable("tblMembresia");
+                });
+
             modelBuilder.Entity("GIMNASIO.Models.MetodoPago", b =>
                 {
                     b.Property<int>("MetodoPagoId")
@@ -179,6 +227,21 @@ namespace GIMNASIO.Migrations
                     b.HasKey("MetodoPagoId");
 
                     b.ToTable("tblMetodoPago");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.MetodoPagoMembresia", b =>
+                {
+                    b.Property<int>("MetodoPagoMembresiaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MetodoPagoMembresiaNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MetodoPagoMembresiaId");
+
+                    b.ToTable("tblMetodoPagoMembresia");
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Producto", b =>
@@ -213,6 +276,21 @@ namespace GIMNASIO.Migrations
                     b.HasIndex("EstadoId");
 
                     b.ToTable("tblProductos");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.TipoMembresia", b =>
+                {
+                    b.Property<int>("TipoMembresiaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TipoMembresiaNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TipoMembresiaId");
+
+                    b.ToTable("tblTipoMembresia");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -353,6 +431,21 @@ namespace GIMNASIO.Migrations
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.Membresia", b =>
+                {
+                    b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId");
+
+                    b.HasOne("GIMNASIO.Models.EstadoMembresia", "EstadoMembresia")
+                        .WithMany()
+                        .HasForeignKey("EstadoMembresiaId");
+
+                    b.HasOne("GIMNASIO.Models.TipoMembresia", "TipoMembresia")
+                        .WithMany()
+                        .HasForeignKey("TipoMembresiaId");
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Producto", b =>
