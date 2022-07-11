@@ -1,6 +1,7 @@
 ﻿using GIMNASIO.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace GIMNASIO.Controllers
         public IActionResult Index()
         {
             ViewData["MetodoPagoId"] = new SelectList(_context.tblMetodoPago.ToList(), "MetodoPagoId", "MetodoNombre");
+            ViewData["Id"] = new SelectList(_context.UserClaims.Include( e => e.).ToList(), "Id", "MetodoNombre");
             CarroCompraViewModel carroCompraViewModel = new CarroCompraViewModel()
             {
                 carroItems = _carro.GetCarroItems(),

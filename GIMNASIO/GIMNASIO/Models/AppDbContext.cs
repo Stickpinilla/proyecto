@@ -35,5 +35,11 @@ namespace GIMNASIO.Models
         public DbSet<EstadoMembresia> tblEstadoMembresia { get; set; }
 
         public DbSet<Membresia> tblMembresia { get; set; }
+
+        public DbSet<PedidoEstado> tblPedidoEstado { get; set; }
+        public DbSet<Pedido> tblPedido { get; set; }
+
+        public DbSet<PedidoDetalle> tblPedidoDetalle { get; set; }
+
     }
 }
