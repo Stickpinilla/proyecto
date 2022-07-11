@@ -9,6 +9,14 @@
     <Compile Remove="Migrations\20220623015528_CATEGORIAS.Designer.cs" />
     <Compile Remove="Migrations\20220625191053_producto.cs" />
     <Compile Remove="Migrations\20220625191053_producto.Designer.cs" />
+    <Compile Remove="Migrations\20220707182700_Migacion.cs" />
+    <Compile Remove="Migrations\20220707182700_Migacion.Designer.cs" />
+    <Compile Remove="Migrations\20220710235243_migracion2.cs" />
+    <Compile Remove="Migrations\20220710235243_migracion2.Designer.cs" />
+    <Compile Remove="Migrations\20220710235326_migracion2.cs" />
+    <Compile Remove="Migrations\20220710235326_migracion2.Designer.cs" />
+    <Compile Remove="Migrations\20220710235651_migracion2.cs" />
+    <Compile Remove="Migrations\20220710235651_migracion2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\imagen\" />
   </ItemGroup>
 
 </Project>
