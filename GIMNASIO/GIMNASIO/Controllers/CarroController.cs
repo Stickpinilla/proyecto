@@ -23,7 +23,7 @@ namespace GIMNASIO.Controllers
         public IActionResult Index()
         {
             ViewData["MetodoPagoId"] = new SelectList(_context.tblMetodoPago.ToList(), "MetodoPagoId", "MetodoNombre");
-            ViewData["Tipo"] = new SelectList(_context.Users.Where(t => t.Tipo.Equals("Cliente")).ToList(), "id", "Rut");
+            ViewData["Id"] = new SelectList(_context.Users.Where(t => t.Tipo == "Cliente").ToList(), "Id", "Rut");
             CarroCompraViewModel carroCompraViewModel = new CarroCompraViewModel()
             {
                 carroItems = _carro.GetCarroItems(),
