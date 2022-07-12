@@ -28,44 +28,59 @@
 
     <hr />
 
-    <table class="table table-striped">
-        <thead style="background-color:#00ffff">
-            <tr>
-                <td>Codigo</td>
-                <td>Producto</td>
-                <td>Imagen</td>
-                <td>Precio Unitario</td>
-                <td>Cantidad</td>
-                <td>Subtotal</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.carroItems)
-            {
+    <form asp-controller="Pedido" asp-action="FinalizarPedido">
+
+
+        <table class="table table-striped">
+            <thead style="background-color:#00ffff">
                 <tr>
-                    <td>@item.CarroItemId</td>
-                    <td>@item.Producto.ProductoNombre</td>
-                    <td><img src="~/imagen/@item.Producto.imagen" width="100" /></td>
-                    <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
-                    <td>@item.CarroCantidad</td>
-                    <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.CarroCantidad * item.Producto.ProductoPrecio)</td>
-                    <td><a asp-controller="Carro" asp-action="Del" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-trash"></i></a></td>
+                    <td>Codigo</td>
+                    <td>Producto</td>
+                    <td>Imagen</td>
+                    <td>Precio Unitario</td>
+                    <td>Cantidad</td>
+                    <td>Subtotal</td>
+                    <td></td>
                 </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td class="text-right" colspan="5">
-                    <strong>Total: </strong>
-                    @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}",
-        Model.Total)
-                </td>
-                <td class="text-left" colspan="5">
-                    <a asp-controller="Pedido" asp-action="FinalizarPedido" class="btn btn-info">Finalizar Pedido</a>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.carroItems)
+                {
+                    <tr>
+                        <td>@item.CarroItemId</td>
+                        <td>@item.Producto.ProductoNombre</td>
+                        <td><img src="~/imagen/@item.Producto.imagen" width="100" /></td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
+                        <td>@item.CarroCantidad</td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.CarroCantidad * item.Producto.ProductoPrecio)</td>
+                        <td><a asp-controller="Carro" asp-action="Del" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-right" colspan="5">
+                        <strong>Total: </strong>
+                        @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}",
+            Model.Total)
+                    </td>
+
+                    <div class="col-md-4 offset-md-4">
+                        <input type="hidden" asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></input>
+                    </div>
+
+                    <div class="col-md-4 offset-md-4">
+                        <input type="hidden" asp-for="Id" class="form-control" asp-items="ViewBag.Id"></input>
+                    </div>
+
+
+                    <td class="text-left" colspan="5">
+                        <input type="submit" value="Finalizar" class="btn btn-primary" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </form>
 
 </div>
