@@ -49,6 +49,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="ListarProductos">Productos</a>
                         </li>
 
+                        <!--con un if para ocultar los administradores de ligas, equipos. productos a los clientes-->
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            var Acceso = User.Claims.Where(x => x.Type == "Admin").FirstOrDefault();
+                            if (Acceso != null)
+                            {
+                                <!-- ver Administracion-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Administracion" asp-action="Administracion">Administracion</a>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MisPedidos"><strong>Ver Mis Pedidos</strong></a>
+                                </li>
+                            }
+                        }
+
 
                         <!-- ver cliente-->
                         <li class="nav-item">
@@ -60,10 +80,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="RegistroAdmin">Admin</a>
                         </li>
 
-                        <!-- ver Administracion-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Administracion" asp-action="Administracion">Administracion</a>
-                        </li>
+
 
                     </ul>
                 </div>

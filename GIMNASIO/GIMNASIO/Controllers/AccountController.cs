@@ -189,5 +189,18 @@ namespace GIMNASIO.Controllers
             return View();
         }
 
+        //empieza mis pedidos
+        public async Task<IActionResult> MisPedidos()
+        {
+            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
+            MisPedidosViewModel Mvm = new MisPedidosViewModel
+            {
+                cliente = Cliente,
+                ListaPedidos = _context.tblPedido
+                .Where(P => P.Cliente.Id == Cliente.Id).ToList()
+            };
+            return View(Mvm);
+        }
+
     }
 }
