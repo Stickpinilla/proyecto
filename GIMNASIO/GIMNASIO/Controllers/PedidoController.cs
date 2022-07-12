@@ -34,6 +34,8 @@ namespace GIMNASIO.Controllers
             PedidoViewModel Pvm = new PedidoViewModel
             {
                 cliente = Cliente,
+                Id = Cliente.Id,
+                MetodoPagoId = Metodo.MetodoPagoId,
                 MetodoPago = Metodo,
                 carroItems = items,
                 Total = total
@@ -42,7 +44,7 @@ namespace GIMNASIO.Controllers
         }
 
 
-        public async Task<IActionResult> FinalizarPedido(CarroCompraViewModel P)
+        public async Task<IActionResult> FinalizarPedido(PedidoViewModel P)
         {
             var Cliente = _context.Users.Where(c => c.Id == P.Id).FirstOrDefault();
             var Metodo = _context.tblMetodoPago.Where(c => c.MetodoPagoId == P.MetodoPagoId).FirstOrDefault();

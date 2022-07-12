@@ -7,7 +7,9 @@ namespace GIMNASIO.Models
 {
     public class PedidoViewModel
     {
+        public string Id { get; set; }
         public Cliente cliente { get; set; }
+        public int MetodoPagoId { get; set; }
         public MetodoPago MetodoPago { get; set; }
         public List<CarroItem> carroItems { get; set; }
 
