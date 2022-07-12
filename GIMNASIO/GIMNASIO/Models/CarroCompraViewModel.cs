@@ -16,7 +16,7 @@ namespace GIMNASIO.Models
         public int MetodoPagoId { get; set; }
         public MetodoPago MetodoPago { get; set; }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public Cliente Cliente { get; set; }
 
         public List<Cliente> cl { get; set; }

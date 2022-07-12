@@ -10,5 +10,10 @@ namespace GIMNASIO.Models
         public int PedidoEstadoId { get; set; }
 
         public string PedidoEstadoNombre { get; set; }
+
+        public static implicit operator PedidoEstado(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
