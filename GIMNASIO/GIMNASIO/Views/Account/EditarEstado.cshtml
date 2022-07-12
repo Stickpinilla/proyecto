@@ -1,0 +1,47 @@
+﻿<div class="container">
+    @model GIMNASIO.Models.Pedido
+
+    @{
+        ViewData["Title"] = "Editar Pedido";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div style="background-color: #00ffff" class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
+        <h2 href="" class="white-text mx-3">Pedido</h2>
+    </div>
+
+    <hr />
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Rut: </strong>@Model.Cliente.Rut</li>
+            <li class="list-group-item"><strong>Nombres: </strong>@Model.Cliente.Nombres</li>
+            <li class="list-group-item"><strong>Apellidos: </strong>@Model.Cliente.ApellidoP</li>
+            <li class="list-group-item"><strong>Correo: </strong>@Model.Cliente.Email</li>
+            <li class="list-group-item"><strong>Telefono: </strong>@Model.Cliente.Telefono</li>
+            <li class="list-group-item"><strong>Direccion: </strong>@Model.Cliente.Direccion</li>
+            <li class="list-group-item"><strong>Ciudad: </strong>@Model.Cliente.Ciudad</li>
+            <li class="list-group-item"><strong>Pedido: </strong>@Model.PedidoId</li>
+            <li class="list-group-item"><strong>Fecha de Compra: </strong>@Model.PedidoFecha</li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="EditarEstado">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PedidoId" />
+
+                <div class="form-group">
+                    <label asp-for="PedidoEstadoId" class="control-label"></label>
+                    <select asp-for="PedidoEstadoId" class="form-control" asp-items="ViewBag.PedidoEstadoId"></select>
+                    <span asp-validation-for="PedidoEstadoId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-outline-success btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

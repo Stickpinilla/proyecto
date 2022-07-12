@@ -53,7 +53,8 @@
                                 <strong>Total: </strong>
                                 @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.PedidoTotal)
                             </li>
-                            <li class="list-group-item"><strong>Estado: </strong>@P.PedidoEstado</li>
+                            <li class="list-group-item"><strong>Estado: </strong>@P.PedidoEstado.PedidoEstadoNombre</li>
+                            <li class="list-group-item"><strong>Metodo de Pago: </strong>@P.MetodoPago.MetodoNombre</li>
                             <li class="list-group-item">
                                 <strong>Ver Producto: </strong>
                                 <a asp-action="DetallePedido" asp-route-PedidoId="@P.PedidoId" class="mr-3"><i class="fas fa-info-circle"></i></a>

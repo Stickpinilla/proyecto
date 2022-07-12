@@ -1,6 +1,7 @@
 ﻿using GIMNASIO.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -203,7 +204,10 @@ namespace GIMNASIO.Controllers
             {
                 cliente = Cliente,
                 ListaPedidos = _context.tblPedido
-                .Where(P => P.Cliente.Id == Cliente.Id).ToList()
+                .Where(P => P.Cliente.Id == Cliente.Id)
+                .Include(m => m.MetodoPago)
+                .Include(e => e.PedidoEstado)
+                .ToList()
             };
             return View(Mvm);
         }
@@ -223,6 +227,50 @@ namespace GIMNASIO.Controllers
             return View(Pvm);
 
         }
+
+
+        //Listar Pedidos para el admin u entrenador
+        public IActionResult ListarPedidos()
+        {
+            var P = _context.tblPedido
+                .Include(c => c.Cliente)
+                .Include(e => e.PedidoEstado)
+                .ToList();
+            return View(P);
+        }
+
+        //editar el estado del pedido
+        [HttpGet]
+        public IActionResult EditarEstado(int PedidoId)
+        {
+            ViewData["PedidoEstadoId"] = new SelectList(_context.tblPedidoEstado.ToList(), "PedidoEstadoId", "PedidoEstadoNombre");
+            var P = _context.tblPedido.Where(p => p.PedidoId.Equals(PedidoId))
+                .Include(c => c.Cliente)
+                .Include(e => e.PedidoEstado).FirstOrDefault();
+            return View(P);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditarEstado(Pedido P)
+        {
+            if (ModelState.IsValid)
+            {
+                var edit = _context.tblPedido.Where(p => p.PedidoId.Equals(P.PedidoId))
+                    .Include(c => c.Cliente)
+                    .Include(e => e.PedidoEstado).FirstOrDefault();
+
+                edit.PedidoEstadoId = P.PedidoEstadoId;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(ListarPedidos));
+            }
+            else
+            {
+                return View(P);
+            }
+
+        }
+
+
 
     }
 }

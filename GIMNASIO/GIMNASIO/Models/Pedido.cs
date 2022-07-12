@@ -20,6 +20,8 @@ namespace GIMNASIO.Models
 
         public MetodoPago MetodoPago { get; set; }
 
+        [Display(Name = "Estado")]
+        public int PedidoEstadoId { get; set; }
         public PedidoEstado PedidoEstado { get; set; }
 
     }
