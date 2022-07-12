@@ -9,62 +9,66 @@
     </div>
 
     <br>
+    <form asp-controller="Pedido" asp-action="Index"  enctype="multipart/form-data">
+        <div>
 
-    <div>
-        <table class="table table-striped ">
-            <thead class="text-center thead-dark">
-                <tr>
-                    <td>Imagen</td>
-                    <td>Producto</td>
-                    <td>Precio Unitario</td>
-                    <td>Cantidad</td>
-                    <td>Subtotal</td>
-                    <td colspan="2">Añadir/Eliminar</td>
-                    <td>Eliminar Producto</td>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                @foreach (var item in Model.carroItems)
-                {
+            <table class="table table-striped ">
+                <thead class="text-center thead-dark">
                     <tr>
-                        <td><img src="~/imagen/@item.Producto.imagen" width="50" height="50" /></td>
-                        <td>@item.Producto.ProductoNombre</td>
-                        <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
-                        <!--Cantidad-->
-                        <td>@item.CarroCantidad</td>
-                        <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.CarroCantidad * item.Producto.ProductoPrecio)</td>
-                        <td><a asp-controller="Carro" asp-action="AddCart" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-plus-circle"></i></a></td>
-                        <td><a asp-controller="Carro" asp-action="DelCart" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-minus-circle"></i></a></td>
-                        <td><a asp-controller="Carro" asp-action="Del" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-trash"></i></a></td>
+                        <td>Imagen</td>
+                        <td>Producto</td>
+                        <td>Precio Unitario</td>
+                        <td>Cantidad</td>
+                        <td>Subtotal</td>
+                        <td colspan="2">Añadir/Eliminar</td>
+                        <td>Eliminar Producto</td>
                     </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach (var item in Model.carroItems)
+                    {
+                        <tr>
+                            <td><img src="~/imagen/@item.Producto.imagen" width="50" height="50" /></td>
+                            <td>@item.Producto.ProductoNombre</td>
+                            <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
+                            <!--Cantidad-->
+                            <td>@item.CarroCantidad</td>
+                            <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.CarroCantidad * item.Producto.ProductoPrecio)</td>
+                            <td><a asp-controller="Carro" asp-action="AddCart" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-plus-circle"></i></a></td>
+                            <td><a asp-controller="Carro" asp-action="DelCart" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-minus-circle"></i></a></td>
+                            <td><a asp-controller="Carro" asp-action="Del" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
 
-                    <td class="text-right" colspan="8">
-                        Total: @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", Model.TotalCarro)
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-    <div class="row justify-content-end">
-        <div class="col-md-4 offset-md-4">
-            <label asp-for="MetodoPagoId" class="control-label"></label>
-            <select asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></select>
+                        <td class="text-right" colspan="8">
+                            Total: @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", Model.TotalCarro)
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
 
-        <div class="col-md-4 offset-md-4">
-            <label asp-for="Id" class="control-label"></label>
-            <select asp-for="Id" class="form-control" asp-items="ViewBag.Id"></select>
-        </div>
+        <div class="row justify-content-end">
+            <div class="col-md-4 offset-md-4">
+                <label asp-for="MetodoPagoId" class="control-label"></label>
+                <select asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></select>
+            </div>
 
-        <div class="col-md-auto">
-            <a asp-controller="Pedido" style="margin-top: 30px" asp-action="Index" class="btn btn-info">Finalizar Compra</a>
-        </div>
-    </div>
+            <div class="col-md-4 offset-md-4">
+                <label asp-for="Id" class="control-label"></label>
+                <select asp-for="Id" class="form-control" asp-items="ViewBag.Id"></select>
+            </div>
+
+            <div class="col-md-auto">
+                <input type="submit" value="Compra" class="btn btn-primary" />
+               
+            </div>
+    </form>
+
+</div>
 
 
 </div>

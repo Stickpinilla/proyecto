@@ -18,5 +18,7 @@ namespace GIMNASIO.Models
 
         public int Id { get; set; }
         public Cliente Cliente { get; set; }
+
+        public List<Cliente> cl { get; set; }
     }
 }

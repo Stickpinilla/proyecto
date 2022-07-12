@@ -1,6 +1,7 @@
 ﻿using GIMNASIO.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,9 @@ namespace GIMNASIO.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Pedido P)
         {
-            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
+            var Cliente = _context.Users.Where(c => c.Id == P.Cliente.Id).FirstOrDefault();
             var items = _carro.GetCarroItems();
             var total = _carro.GetTotalCarro();
             PedidoViewModel Pvm = new PedidoViewModel
