@@ -147,7 +147,12 @@ namespace GIMNASIO.Controllers
             return View();
         }
 
-
+        //El cliente ve sus datos
+        public async Task<IActionResult> MisDatos()
+        {
+            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
+            return View(Cliente);
+        }
 
 
         //llamar al registro entrenador

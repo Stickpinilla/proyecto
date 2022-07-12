@@ -12,6 +12,10 @@
             <a style="height:20px;margin-right:10px;" class="badge-primary text-white"><i class="fas fa-file-signature mr-2">Bienvenido</i> @userManager.GetUserName(User)</a>
         </li>
         <li class="nav-item" style="height:20px;">
+            <a asp-controller="Account" asp-action="MisDatos"
+               style="height:20px;margin-right:10px;" class="badge-primary text-white"><i class="fas fa-sign-in-alt mr-2"></i>Mis Datos</a>
+        </li>
+        <li class="nav-item" style="height:20px;">
             <a asp-controller="Account" asp-action="CerrarSesion"
                style="height:20px;margin-right:10px;" class="badge-primary text-white"><i class="fas fa-sign-in-alt mr-2"></i>Cerrar Sesion</a>
         </li>

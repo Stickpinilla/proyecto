@@ -1,0 +1,24 @@
+﻿<div class="container">
+    @using GIMNASIO.Models
+    @using Microsoft.AspNetCore.Identity
+
+    @model Cliente
+    @inject SignInManager<Cliente> signInManager
+    @inject UserManager<Cliente> userManager
+
+
+
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Rut: </strong>@Model.Rut</li>
+            <li class="list-group-item"><strong>Nombre </strong>@Model.Nombres</li>
+            <li class="list-group-item"><strong>Apellido Paterno: </strong>@Model.ApellidoP</li>
+            <li class="list-group-item"><strong>Apellido Materno: </strong>@Model.ApellidoM</li>
+            <li class="list-group-item"><strong>Correo: </strong>@Model.Email</li>
+            <li class="list-group-item"><strong>Telefono: </strong>@Model.Telefono</li>
+            <li class="list-group-item"><strong>Direccion: </strong>@Model.Direccion</li>
+            <li class="list-group-item"><strong>Ciudad: </strong>@Model.Ciudad</li>
+            <li class="list-group-item"><strong>Fecha de Nacimiento: </strong>@Model.fecha</li>
+        </ul>
+    </div>
+</div>
