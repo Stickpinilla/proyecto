@@ -132,7 +132,8 @@ namespace GIMNASIO.Controllers
                     Direccion = Rvm.Direccion,
                     Ciudad = Rvm.Ciudad,
                     fecha = Rvm.fecha.Date,
-                    UserName = Rvm.Correo
+                    UserName = Rvm.Correo,
+                    Tipo = "Admin"
                 };
                 var resultado = await _userManager.CreateAsync(User, Rvm.Pass);
                 if (resultado.Succeeded)
@@ -173,7 +174,8 @@ namespace GIMNASIO.Controllers
                     Direccion = Rvm.Direccion,
                     Ciudad = Rvm.Ciudad,
                     fecha = Rvm.fecha.Date,
-                    UserName = Rvm.Correo
+                    UserName = Rvm.Correo,
+                    Tipo = "Entrenador"
                 };
                 var resultado = await _userManager.CreateAsync(User, Rvm.Pass);
                 if (resultado.Succeeded)
@@ -186,7 +188,6 @@ namespace GIMNASIO.Controllers
             }
             return View();
         }
-
 
     }
 }
