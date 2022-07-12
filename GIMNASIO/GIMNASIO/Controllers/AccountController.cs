@@ -261,6 +261,7 @@ namespace GIMNASIO.Controllers
 
                 edit.PedidoEstadoId = P.PedidoEstadoId;
                 await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Estado de Pedido Modificado Exitosamente!";
                 return RedirectToAction(nameof(ListarPedidos));
             }
             else
@@ -269,6 +270,27 @@ namespace GIMNASIO.Controllers
             }
 
         }
+
+        
+        public IActionResult AdminPedido(int PedidoId)
+        {
+
+
+            PedidoDetalleViewModel Pvm = new PedidoDetalleViewModel
+            {
+                Pedido = _context.tblPedido.Where(p => p.PedidoId == PedidoId)
+                .Include(m => m.MetodoPago)
+                .Include(e => e.PedidoEstado)
+                .Include(c => c.Cliente)
+                .FirstOrDefault(),
+                ListaDetalle = _context.tblPedidoDetalle.Where(pd => pd.PedidoId == PedidoId)
+                .Include(dt => dt.Producto)
+                .ToList()
+            };
+            return View(Pvm);
+        }
+
+
 
 
 

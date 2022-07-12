@@ -1,0 +1,94 @@
+﻿<div class="container">
+    @model PedidoDetalleViewModel
+    @{
+        ViewData["Title"] = "Mis Pedidos";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div style="background-color: #00ffff" class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
+        <h2 href="" class="white-text mx-3">Detalle Pedido</h2>
+    </div>
+
+    <br />
+
+
+    <table class="table table-striped">
+        <thead class="text-center thead-dark">
+            <tr>
+                <td>Id</td>
+                <td>Fecha</td>
+                <td>Rut</td>
+                <td>Nombres</td>
+                <td>Correo</td>
+                <td>Metodo de Pago</td>
+                <td>Estado</td>
+                <td>Total</td>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr class="text-center">
+                <td>
+                    @Model.Pedido.PedidoId
+                </td>
+                <td>
+                    @Model.Pedido.PedidoFecha
+                </td>
+                <td>
+                    @Model.Pedido.Cliente.Rut
+                </td>
+                <td>
+                    @Model.Pedido.Cliente.Nombres
+                <td>
+                    @Model.Pedido.Cliente.Correo
+                </td>
+                <td>
+                    @Model.Pedido.MetodoPago.MetodoNombre
+                </td>
+                <td>
+                    @Model.Pedido.PedidoEstado.PedidoEstadoNombre
+                </td>
+                <td>
+                    @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", @Model.Pedido.PedidoTotal)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+    <table class="table table-striped">
+        <thead style="background-color:#00ffff">
+            <tr>
+                <td>Codigo</td>
+                <td>Producto</td>
+                <td>Imagen</td>
+                <td>Precio Unitario</td>
+                <td>Cantidad</td>
+                <td>Subtotal</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListaDetalle)
+            {
+                <tr>
+                    <td>@item.Producto.ProductoId</td>
+                    <td>@item.Producto.ProductoNombre</td>
+                    <td><img src="~/imagen/@item.Producto.imagen" width="100" /></td>
+                    <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
+                    <td>@item.Cantidad</td>
+                    <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Cantidad * item.Producto.ProductoPrecio)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="text-right" colspan="5">
+                    <strong>Total: </strong>
+                </td>
+                <td class="text-left">
+                    $ @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}",
+Model.Pedido.PedidoTotal)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
