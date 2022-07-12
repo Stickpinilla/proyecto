@@ -201,6 +201,9 @@ namespace GIMNASIO.Migrations
                     b.Property<DateTime>("FechaTermino")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MetodoPagoMembresiaId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TipoMembresiaId")
                         .HasColumnType("int");
 
@@ -209,6 +212,8 @@ namespace GIMNASIO.Migrations
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("EstadoMembresiaId");
+
+                    b.HasIndex("MetodoPagoMembresiaId");
 
                     b.HasIndex("TipoMembresiaId");
 
@@ -516,6 +521,10 @@ namespace GIMNASIO.Migrations
                     b.HasOne("GIMNASIO.Models.EstadoMembresia", "EstadoMembresia")
                         .WithMany()
                         .HasForeignKey("EstadoMembresiaId");
+
+                    b.HasOne("GIMNASIO.Models.MetodoPagoMembresia", "MetodoPagoMembresia")
+                        .WithMany()
+                        .HasForeignKey("MetodoPagoMembresiaId");
 
                     b.HasOne("GIMNASIO.Models.TipoMembresia", "TipoMembresia")
                         .WithMany()
