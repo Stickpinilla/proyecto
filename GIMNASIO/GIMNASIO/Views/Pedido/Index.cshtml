@@ -1,0 +1,69 @@
+﻿<div class="container">
+
+    @model PedidoViewModel
+    @{
+        ViewData["Title"] = "Resumen de Pedido";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
+        <h2 href="" class="white-text mx-3">Resumen de Pedido</h2>
+    </div>
+
+    <hr />
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Rut: </strong>@Model.cliente.Rut</li>
+            <li class="list-group-item"><strong>Nombres: </strong>@Model.cliente.Nombres</li>
+            <li class="list-group-item"><strong>Apellido Paterno: </strong>@Model.cliente.ApellidoP</li>
+            <li class="list-group-item"><strong>Apellido Materno: </strong>@Model.cliente.ApellidoM</li>
+            <li class="list-group-item"><strong>Correo: </strong>@Model.cliente.Email</li>
+            <li class="list-group-item"><strong>Telefono: </strong>@Model.cliente.Telefono</li>
+            <li class="list-group-item"><strong>Direccion: </strong>@Model.cliente.Direccion</li>
+            <li class="list-group-item"><strong>Ciudad: </strong>@Model.cliente.Ciudad</li>
+        </ul>
+    </div>
+
+    <hr />
+
+    <table class="table table-striped">
+        <thead style="background-color:#00ffff">
+            <tr>
+                <td>Codigo</td>
+                <td>Producto</td>
+                <td>Imagen</td>
+                <td>Precio Unitario</td>
+                <td>Cantidad</td>
+                <td>Subtotal</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.carroItems)
+            {
+                <tr>
+                    <td>@item.CarroItemId</td>
+                    <td>@item.Producto.ProductoNombre</td>
+                    <td><img src="~/imagen/@item.Producto.imagen" width="100" /></td>
+                    <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
+                    <td>@item.CarroCantidad</td>
+                    <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.CarroCantidad * item.Producto.ProductoPrecio)</td>
+                    <td><a asp-controller="Carro" asp-action="Del" asp-route-ProductoId="@item.ProductoId" class="mr-3"><i class="fas fa-trash"></i></a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="text-right" colspan="5">
+                    <strong>Total: </strong>
+                    @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}",
+        Model.Total)
+                </td>
+                <td class="text-left" colspan="5">
+                    <a asp-controller="Pedido" asp-action="FinalizarPedido" class="btn btn-info">Finalizar Pedido</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
