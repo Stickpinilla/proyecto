@@ -85,5 +85,15 @@ namespace GIMNASIO.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(ListarCliente));
         }
+
+        public IActionResult Producto(int ProductoId)
+        {
+
+            return View(_context.tblProductos.Where(p => p.ProductoId.Equals(ProductoId))
+                .Include(c => c.Categoria)
+                .Include(e => e.Estado)
+                .ToList());
+        }
+
     }
 }

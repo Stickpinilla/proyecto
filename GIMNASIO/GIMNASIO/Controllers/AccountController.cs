@@ -147,12 +147,6 @@ namespace GIMNASIO.Controllers
             return View();
         }
 
-        //El cliente ve sus datos
-        public async Task<IActionResult> MisDatos()
-        {
-            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
-            return View(Cliente);
-        }
 
 
         //llamar al registro entrenador
@@ -194,6 +188,13 @@ namespace GIMNASIO.Controllers
             return View();
         }
 
+        //El cliente ve sus datos
+        public async Task<IActionResult> MisDatos()
+        {
+            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
+            return View(Cliente);
+        }
+
         //empieza mis pedidos
         public async Task<IActionResult> MisPedidos()
         {
@@ -205,6 +206,22 @@ namespace GIMNASIO.Controllers
                 .Where(P => P.Cliente.Id == Cliente.Id).ToList()
             };
             return View(Mvm);
+        }
+
+        public IActionResult DetallePedido(int PedidoId)
+        {
+            PedidoDetalleViewModel Pvm = new PedidoDetalleViewModel
+            {
+                Pedido = _context.tblPedido.Where(p => p.PedidoId == PedidoId)
+                .Include(m => m.MetodoPago)
+                .Include(e => e.PedidoEstado)
+                .FirstOrDefault(),
+                ListaDetalle = _context.tblPedidoDetalle.Where(pd => pd.PedidoId == PedidoId)
+                .Include(dt => dt.Producto)
+                .ToList()
+            };
+            return View(Pvm);
+
         }
 
     }
