@@ -20,6 +20,7 @@ namespace GIMNASIO.Models
 
         public EstadoMembresia EstadoMembresia { get; set; }
         public TipoMembresia TipoMembresia { get; set; }
+        public MetodoPagoMembresia MetodoPagoMembresia { get; set; }
         public Cliente Cliente { get; set; }
     }
 }
