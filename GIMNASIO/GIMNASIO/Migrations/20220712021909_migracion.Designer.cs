@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220711004450_migracion")]
+    [Migration("20220712021909_migracion")]
     partial class migracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,6 +128,9 @@ namespace GIMNASIO.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -200,6 +203,9 @@ namespace GIMNASIO.Migrations
                     b.Property<DateTime>("FechaTermino")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MetodoPagoMembresiaId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TipoMembresiaId")
                         .HasColumnType("int");
 
@@ -208,6 +214,8 @@ namespace GIMNASIO.Migrations
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("EstadoMembresiaId");
+
+                    b.HasIndex("MetodoPagoMembresiaId");
 
                     b.HasIndex("TipoMembresiaId");
 
@@ -242,6 +250,79 @@ namespace GIMNASIO.Migrations
                     b.HasKey("MetodoPagoMembresiaId");
 
                     b.ToTable("tblMetodoPagoMembresia");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.Pedido", b =>
+                {
+                    b.Property<int>("PedidoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClienteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("MetodoPagoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PedidoEstadoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PedidoFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PedidoTotal")
+                        .HasColumnType("int");
+
+                    b.HasKey("PedidoId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("MetodoPagoId");
+
+                    b.HasIndex("PedidoEstadoId");
+
+                    b.ToTable("tblPedido");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.PedidoDetalle", b =>
+                {
+                    b.Property<int>("PedidoDetalleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PedidoDetalleId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.HasIndex("ProductoId");
+
+                    b.ToTable("tblPedidoDetalle");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.PedidoEstado", b =>
+                {
+                    b.Property<int>("PedidoEstadoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PedidoEstadoNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PedidoEstadoId");
+
+                    b.ToTable("tblPedidoEstado");
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Producto", b =>
@@ -443,9 +524,43 @@ namespace GIMNASIO.Migrations
                         .WithMany()
                         .HasForeignKey("EstadoMembresiaId");
 
+                    b.HasOne("GIMNASIO.Models.MetodoPagoMembresia", "MetodoPagoMembresia")
+                        .WithMany()
+                        .HasForeignKey("MetodoPagoMembresiaId");
+
                     b.HasOne("GIMNASIO.Models.TipoMembresia", "TipoMembresia")
                         .WithMany()
                         .HasForeignKey("TipoMembresiaId");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.Pedido", b =>
+                {
+                    b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId");
+
+                    b.HasOne("GIMNASIO.Models.MetodoPago", "MetodoPago")
+                        .WithMany()
+                        .HasForeignKey("MetodoPagoId");
+
+                    b.HasOne("GIMNASIO.Models.PedidoEstado", "PedidoEstado")
+                        .WithMany()
+                        .HasForeignKey("PedidoEstadoId");
+                });
+
+            modelBuilder.Entity("GIMNASIO.Models.PedidoDetalle", b =>
+                {
+                    b.HasOne("GIMNASIO.Models.Pedido", "Pedido")
+                        .WithMany()
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GIMNASIO.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Producto", b =>

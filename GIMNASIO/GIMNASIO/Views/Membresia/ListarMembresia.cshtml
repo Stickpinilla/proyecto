@@ -1,0 +1,35 @@
+﻿@model ICollection<Membresia>
+
+<div class="container text-center">
+    <h2>Membresia</h2>
+    <hr>
+    <a asp-controller="" asp-action="" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+</div>
+
+<br>
+
+<table class="table table-striped">
+    <thead class="text-center thead-dark">
+        <tr>
+            <td>id</td>
+            <td>Fecha inicio</td>
+            <td>Fecha termino</td>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var M in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => M.MembresiaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.FechaComienzo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.FechaTermino)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
