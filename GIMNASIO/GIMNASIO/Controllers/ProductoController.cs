@@ -114,9 +114,15 @@ namespace GIMNASIO.Controllers
         [HttpPost]
         public async Task<IActionResult> EliminarProducto(Producto P)
         {
+            string wrp = _hostEnviroment.WebRootPath;
             var pEliminado = _context.tblProductos.Where(p => p.ProductoId == P.ProductoId).FirstOrDefault();
             _context.Entry(pEliminado).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
+            if (pEliminado.imagen != "sinfoto.jpg")
+            {
+                var file = Path.Combine(wrp + "/imagen/" + pEliminado.imagen);
+                System.IO.File.Delete(file);
+            }
             TempData["Mensaje"] = "Producto Eliminado Exitosamente!";
             return RedirectToAction(nameof(ListarProductos));
         }
@@ -146,21 +152,26 @@ namespace GIMNASIO.Controllers
                 {
                     //Para La Imagen
                     string wwwRootPath = _hostEnviroment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(P.ImagenFile.FileName);
-                    string extension = Path.GetExtension(P.ImagenFile.FileName);
-                    P.imagen = fileName + DateTime.Now.ToString("ddMMyyyyHHmmss") + extension;
-
-                    string path = Path.Combine(wwwRootPath + "/imagen/" + P.imagen);
-                    using (var fileStrem = new FileStream(path, FileMode.Create))
+                    if (pModificada.imagen != "NoImagen.png")
                     {
-                        await P.ImagenFile.CopyToAsync(fileStrem);
+                        var file = Path.Combine(wwwRootPath + "/imagen/" + pModificada.imagen);
+                        System.IO.File.Delete(file);
+                    }
+
+                    string filename = Path.GetFileNameWithoutExtension(P.ImagenFile.FileName);
+                    string extention = Path.GetExtension(P.ImagenFile.FileName);
+                    pModificada.imagen = filename + DateTime.Now.ToString("ddMMyyyyHHmmss") + extention;
+                    string path = Path.Combine(wwwRootPath + "/imagen/" + pModificada.imagen);
+
+                    using (var filestream = new FileStream(path, FileMode.Create))
+                    {
+                        await P.ImagenFile.CopyToAsync(filestream);
                     }
                 }
 
                 pModificada.ProductoNombre = P.ProductoNombre;
                 pModificada.ProductoDesc = P.ProductoDesc;
                 pModificada.ProductoPrecio = P.ProductoPrecio;
-                pModificada.imagen = P.imagen;
                 pModificada.EstadoId = P.EstadoId;
                 pModificada.CategoriaId = P.CategoriaId;
                 await _context.SaveChangesAsync();
