@@ -118,7 +118,7 @@ namespace GIMNASIO.Controllers
             var pEliminado = _context.tblProductos.Where(p => p.ProductoId == P.ProductoId).FirstOrDefault();
             _context.Entry(pEliminado).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
-            if (pEliminado.imagen != "sinfoto.jpg")
+            if (pEliminado.imagen != "NoImagen.png")
             {
                 var file = Path.Combine(wrp + "/imagen/" + pEliminado.imagen);
                 System.IO.File.Delete(file);

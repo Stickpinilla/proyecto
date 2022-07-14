@@ -1,15 +1,25 @@
-﻿<div class="container">
-    @{
-        ViewData["Title"] = "Pedido Completado";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
-    <div class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
-        <h2 href="" class="white-text mx-3">Pedido Completado Exitosamente</h2>
+﻿<div class="container text-center">
+    <div class="container text-center">
+        <h2>Pedido Completado</h2>
+        <hr>
     </div>
 
     <hr />
 
-    <h1>Gracias por tu preferencia. Estamos Preparando tu Compra</h1>
+    <h1>El pedido ha finalizado satisfactoriamente</h1>
 
+    <br>
+
+    <img src="imagenes/check.png" alt="">
+
+    <br>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-4">
+            <button class="btn btn-success btn-lg">Ver Pedidos</button>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-primary btn-lg">Volver Atrás</button>
+        </div>
+    </div>
 </div>
