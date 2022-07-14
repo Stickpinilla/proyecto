@@ -10,17 +10,21 @@ namespace GIMNASIO.Models
     {
         public List<Membresia> ListaMembresias { get; set; }
 
-        [Display(Name = "Metodo de Pago")]
-        public int MetodoPagoMembresiaId { get; set; }
-        public MetodoPagoMembresia MetodoPagoMembresia { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FechaComienzo { get; set; }
 
-        [Display(Name = "Estado de Membresia")]
         public int EstadoMembresiaId { get; set; }
         public EstadoMembresia EstadoMembresia { get; set; }
 
-        [Display(Name = "Tipo de Membresia")]
         public int TipoMembresiaId { get; set; }
         public TipoMembresia TipoMembresia { get; set; }
+
+        public int MetodoPagoMembresiaId { get; set; }
+        public MetodoPagoMembresia MetodoPagoMembresia { get; set; }
+
+        public string Id { get; set; }
+        public Cliente Cliente { get; set; }
 
     }
 }

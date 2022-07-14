@@ -1,11 +1,10 @@
-﻿@model ICollection<Membresia>
+﻿@model MembresiaViewModel
 
 <div class="container text-center">
     <h2>Membresia</h2>
     <hr>
-    <a asp-controller="" asp-action="" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+    <a asp-controller="Membresia" asp-action="AgregarMembresia" asp-route-ClienteId="@Model.Id" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
 </div>
-
 <br>
 
 <table class="table table-striped">
@@ -14,22 +13,37 @@
             <td>id</td>
             <td>Fecha inicio</td>
             <td>Fecha termino</td>
+            <td>Tipo</td>
+            <td>Metodo de Pago</td>
+            <td>Estado</td>
+            <td colspan="2">Editar/Eliminar</td>
         </tr>
     </thead>
     <tbody class="text-center">
-        @foreach (var M in Model)
+        @foreach (var M in Model.ListaMembresias)
         {
-            <tr class="text-center">
-                <td>
-                    @Html.DisplayFor(modelItem => M.MembresiaId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => M.FechaComienzo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => M.FechaTermino)
-                </td>
-            </tr>
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => M.MembresiaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => M.FechaComienzo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => M.FechaTermino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => M.TipoMembresia.TipoMembresiaNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => M.MetodoPagoMembresia.MetodoPagoMembresiaNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => M.EstadoMembresia.EstadoMembresiaNombre)
+            </td>
+            <td><a asp-action="ModificarMembresia" asp-route-Id="@M.MembresiaId" asp-route-ClienteId="@M.Cliente.Id" class="ml-4 btn btn-warning text-white"><i class="fa-solid fa-file-pen"></i></a></td>
+            <td><a asp-action="EliminarMembresia" asp-route-Id="@M.MembresiaId" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+        </tr>
         }
     </tbody>
 </table>
