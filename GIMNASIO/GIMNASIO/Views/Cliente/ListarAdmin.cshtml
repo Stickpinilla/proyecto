@@ -1,0 +1,39 @@
+﻿
+@model ICollection<Cliente>
+
+<div class="container text-center">
+    <h2>Lista de Administradores</h2>
+    <hr>
+    <a asp-controller="Cliente" asp-action="RegistroAdmin" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+</div>
+
+<br>
+
+<table class="table table-striped">
+    <thead class="text-center thead-dark">
+        <tr>
+            <td>Rut</td>
+            <td>Nombre</td>
+            <td>Correo</td>
+            <td colspan="2">Editar/Eliminar</td>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var C in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => C.Rut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => C.Nombres) @Html.DisplayFor(modelItem => C.ApellidoM) @Html.DisplayFor(modelItem => C.ApellidoP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => C.Correo)
+                </td>
+                <td><a asp-action="ModificarCliente" asp-route-Id="@C.Id" class="ml-4 btn btn-warning text-white"><i class="fa-solid fa-file-pen"></i></a></td>
+                <td><a asp-action="EliminarCliente" asp-route-Id="@C.Id" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>

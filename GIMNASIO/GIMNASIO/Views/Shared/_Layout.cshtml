@@ -35,16 +35,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-
-                        <!-- ver categorias-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="ListarCategorias">Categorias</a>
-                        </li>
-
-
 
                         <!--con un if para ocultar los administradores de ligas, equipos. productos a los clientes-->
                         @if (signInManager.IsSignedIn(User))
@@ -52,13 +42,18 @@
                             var Acceso = User.Claims.Where(x => x.Type == "Admin").FirstOrDefault();
                             if (Acceso != null)
                             {
+                                <!-- ver categorias-->
                                 <li class="nav-item">
-                                    <a class="nav-link badge-primary text-white" asp-area="" asp-controller="Account" asp-action="listarPedidos"><strong>ADM Pedidos</strong></a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="ListarCategorias">Categorias</a>
                                 </li>
 
                                 <!-- ver Administracion-->
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Administracion" asp-action="Administracion">Administracion</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="listarPedidos">Administracion Pedidos</a>
                                 </li>
 
                             }
@@ -81,15 +76,7 @@
                         }
 
 
-                        <!-- ver cliente-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="ListarCliente">Cliente</a>
-                        </li>
 
-                        <!-- ver admin-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="RegistroAdmin">Admin</a>
-                        </li>
 
 
 
