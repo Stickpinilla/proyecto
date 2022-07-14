@@ -52,18 +52,18 @@
         </div>
 
         <div class="row justify-content-end">
-            <div class="col-md-4 offset-md-4">
+            <div class="col-md-3 offset-md-1">
                 <label asp-for="MetodoPagoId" class="control-label"></label>
                 <select asp-for="MetodoPagoId" class="form-control" asp-items="ViewBag.MetodoPagoId"></select>
             </div>
 
-            <div class="col-md-4 offset-md-4">
-                <label asp-for="Id" class="control-label"></label>
+            <div class="col-md-3 offset-md-1">
+                <label asp-for="Id" class="control-label">Rut de Cliente</label>
                 <select asp-for="Id" class="form-control" asp-items="ViewBag.Id"></select>
             </div>
 
-            <div class="col-md-auto">
-                <input type="submit" value="Compra" class="btn btn-primary" />
+            <div class="col-md-auto mt-4">
+                <input type="submit" value="Finalizar Compra" class="btn btn-primary" />
       
             </div>
     </form>
