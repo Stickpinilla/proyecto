@@ -144,6 +144,16 @@ namespace GIMNASIO.Controllers
         }
 
 
+        public async Task<IActionResult> EliminarEntrenador(Cliente C)
+        {
+            var ClienteBorrar = _context.Users.Where(c => c.Id == C.Id).FirstOrDefault();
+            _context.Entry(ClienteBorrar).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ListarEntrenadores));
+        }
+
+
+
         public IActionResult ListarAdmin()
         {
             var adminlista = _context.Users.Where(t => t.Tipo == "Admin").ToList();
@@ -189,6 +199,17 @@ namespace GIMNASIO.Controllers
             }
             return View();
         }
+
+
+
+        public async Task<IActionResult> EliminarAdmin(Cliente C)
+        {
+            var ClienteBorrar = _context.Users.Where(c => c.Id == C.Id).FirstOrDefault();
+            _context.Entry(ClienteBorrar).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ListarAdmin));
+        }
+
 
     }
 }

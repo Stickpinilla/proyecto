@@ -12,7 +12,8 @@ namespace GIMNASIO.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB;Initial Catalog = BDGIMNASIO; Integrated Security = True");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDGIMNASIO;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //optionsBuilder.UseSqlServer("Server=tcp:gimnasiodbserver.database.windows.net,1433;Initial Catalog=GIMNASIO_db;Persist Security Info=False;User ID=jonathan;Password=jonY_2205;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -40,6 +41,18 @@ namespace GIMNASIO.Models
         public DbSet<Pedido> tblPedido { get; set; }
 
         public DbSet<PedidoDetalle> tblPedidoDetalle { get; set; }
+
+
+        //se agrega tablas de entrenamiento
+
+        public DbSet<EntrenamientoZona> tblEntrenamientoZona { get; set; }
+        public DbSet<EntrenamientoEstado> tblEntrenamientoEstado { get; set; }
+        public DbSet<EntrenamientoCategoria> tblEntrenamientoCategoria { get; set; }
+        public DbSet<Entrenamiento> tblEntrenamiento { get; set; }
+
+        public DbSet<EntrenamientoUsuario> tblEntrenamientoUsuario { get; set; }
+
+        public DbSet<AvanceCliente> tblAvanceCliente { get; set; }
 
     }
 }

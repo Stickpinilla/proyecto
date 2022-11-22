@@ -83,7 +83,7 @@ namespace GIMNASIO.Controllers
             {
                 var User = new Cliente()
                 {
-                    Rut = Rvm.Rut,
+                    Rut = Convert.ToInt32(Rvm.Rut).ToString(@"##\.###\.###\-#"),
                     Nombres = Rvm.Nombres,
                     ApellidoP = Rvm.ApellidoP,
                     ApellidoM = Rvm.ApellidoM,

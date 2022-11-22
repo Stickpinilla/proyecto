@@ -8,14 +8,20 @@
 
     @if (signInManager.IsSignedIn(User))
     {
-        <li class="nav-item badge-primary text-white" style="height:20px;">
+        <li class="nav-item badge-primary text-white" style="        height: 20px;
+     
+">
             <a style="height:20px;margin-right:10px;" class="badge-primary text-white"><i class="fas fa-file-signature mr-2">Bienvenido</i> @userManager.GetUserName(User)</a>
         </li>
-        <li class="nav-item" style="height:20px;">
+        <li class="nav-item" style="        height: 20px;
+      
+">
             <a asp-controller="Account" asp-action="MisDatos"
                style="height:20px;margin-right:10px;" class="badge-primary text-white"><i class="fas fa-sign-in-alt mr-2"></i>Mis Datos</a>
         </li>
-        <li class="nav-item" style="height:20px;">
+        <li class="nav-item" style="        height: 20px;
+      
+">
             <a asp-controller="Account" asp-action="CerrarSesion"
                style="height:20px;margin-right:10px;" class="badge-primary text-white"><i class="fas fa-sign-in-alt mr-2"></i>Cerrar Sesion</a>
         </li>
@@ -25,8 +31,9 @@
         <li class="nav-item badge-primary text-white" style="height:20px;">
             <a style="height:20px;margin-right:10px;" class="badge-primary text-white" asp-action="Registro" asp-controller="Account"><i class="fas fa-file-signature mr-2"></i>Registro</a>
         </li>
-        <li class="nav-item badge-primary text-white" style="height:20px;">
-            <a style="height:20px;margin-right:10px;" class="badge-primary text-white" asp-action="Login" asp-controller="Account"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesion</a>
+        <li class="nav-item  text-white" style="        height: 20px;
+">
+            <a style="height:20px;margin-right:10px;" class="text-white" asp-action="Login" asp-controller="Account"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesion</a>
         </li>
     }
 </ul>

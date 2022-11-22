@@ -4,14 +4,16 @@ using GIMNASIO.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220902175436_tblavances")]
+    partial class tblavances
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,9 +30,6 @@ namespace GIMNASIO.Migrations
 
                     b.Property<double>("AvanceCliente_Altura")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("AvanceCliente_Fecha")
-                        .HasColumnType("datetime2");
 
                     b.Property<float>("AvanceCliente_IMC")
                         .HasColumnType("real");

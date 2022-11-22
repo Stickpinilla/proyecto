@@ -125,8 +125,8 @@ namespace GIMNASIO.Models
                 item.CarroCantidad--;
             }
             _context.SaveChanges();
-
         }
+
 
     }
 }

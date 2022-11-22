@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220712021909_migracion")]
+    [Migration("20220714160857_migracion")]
     partial class migracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,7 +265,7 @@ namespace GIMNASIO.Migrations
                     b.Property<int?>("MetodoPagoId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PedidoEstadoId")
+                    b.Property<int>("PedidoEstadoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PedidoFecha")
@@ -545,7 +545,9 @@ namespace GIMNASIO.Migrations
 
                     b.HasOne("GIMNASIO.Models.PedidoEstado", "PedidoEstado")
                         .WithMany()
-                        .HasForeignKey("PedidoEstadoId");
+                        .HasForeignKey("PedidoEstadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.PedidoDetalle", b =>

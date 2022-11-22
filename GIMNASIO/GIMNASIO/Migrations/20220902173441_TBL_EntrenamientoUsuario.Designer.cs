@@ -4,52 +4,22 @@ using GIMNASIO.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220902173441_TBL_EntrenamientoUsuario")]
+    partial class TBL_EntrenamientoUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("GIMNASIO.Models.AvanceCliente", b =>
-                {
-                    b.Property<int>("AvanceClienteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AvanceCliente_Altura")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("AvanceCliente_Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("AvanceCliente_IMC")
-                        .HasColumnType("real");
-
-                    b.Property<double>("AvanceCliente_Peso")
-                        .HasColumnType("float");
-
-                    b.Property<string>("AvanceCliente_Situacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClienteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("AvanceClienteId");
-
-                    b.HasIndex("ClienteId");
-
-                    b.ToTable("tblAvanceCliente");
-                });
 
             modelBuilder.Entity("GIMNASIO.Models.CarroItem", b =>
                 {
@@ -639,13 +609,6 @@ namespace GIMNASIO.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.AvanceCliente", b =>
-                {
-                    b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.CarroItem", b =>

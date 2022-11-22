@@ -4,52 +4,22 @@ using GIMNASIO.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220715013709_baseazure")]
+    partial class baseazure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("GIMNASIO.Models.AvanceCliente", b =>
-                {
-                    b.Property<int>("AvanceClienteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AvanceCliente_Altura")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("AvanceCliente_Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("AvanceCliente_IMC")
-                        .HasColumnType("real");
-
-                    b.Property<double>("AvanceCliente_Peso")
-                        .HasColumnType("float");
-
-                    b.Property<string>("AvanceCliente_Situacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClienteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("AvanceClienteId");
-
-                    b.HasIndex("ClienteId");
-
-                    b.ToTable("tblAvanceCliente");
-                });
 
             modelBuilder.Entity("GIMNASIO.Models.CarroItem", b =>
                 {
@@ -182,112 +152,6 @@ namespace GIMNASIO.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.Entrenamiento", b =>
-                {
-                    b.Property<int>("EntrenamientoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EntrenamientoCategoriaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EntrenamientoEstadoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EntrenamientoZonaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Entrenamiento_CupoDisponible")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Entrenamiento_CupoTotal")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Entrenamiento_Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EntrenamientoId");
-
-                    b.HasIndex("EntrenamientoCategoriaId");
-
-                    b.HasIndex("EntrenamientoEstadoId");
-
-                    b.HasIndex("EntrenamientoZonaId");
-
-                    b.ToTable("tblEntrenamiento");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.EntrenamientoCategoria", b =>
-                {
-                    b.Property<int>("EntrenamientoCategoriaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EntrenamientoCategoria_Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EntrenamientoCategoriaId");
-
-                    b.ToTable("tblEntrenamientoCategoria");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.EntrenamientoEstado", b =>
-                {
-                    b.Property<int>("EntrenamientoEstadoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Entrenamiento_NombreEstado")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EntrenamientoEstadoId");
-
-                    b.ToTable("tblEntrenamientoEstado");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.EntrenamientoUsuario", b =>
-                {
-                    b.Property<int>("EntrenamientoUsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClienteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("EntrenamientoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EntrenamientoUsuarioId");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("EntrenamientoId");
-
-                    b.ToTable("tblEntrenamientoUsuario");
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.EntrenamientoZona", b =>
-                {
-                    b.Property<int>("EntrenamientoZonaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("EntrenamientoZona_Disponibilidad")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("EntrenamientoZona_Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EntrenamientoZonaId");
-
-                    b.ToTable("tblEntrenamientoZona");
                 });
 
             modelBuilder.Entity("GIMNASIO.Models.Estado", b =>
@@ -641,52 +505,11 @@ namespace GIMNASIO.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("GIMNASIO.Models.AvanceCliente", b =>
-                {
-                    b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
-                });
-
             modelBuilder.Entity("GIMNASIO.Models.CarroItem", b =>
                 {
                     b.HasOne("GIMNASIO.Models.Producto", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.Entrenamiento", b =>
-                {
-                    b.HasOne("GIMNASIO.Models.EntrenamientoCategoria", "entrenamientocategoria")
-                        .WithMany()
-                        .HasForeignKey("EntrenamientoCategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GIMNASIO.Models.EntrenamientoEstado", "entrenamientoestado")
-                        .WithMany()
-                        .HasForeignKey("EntrenamientoEstadoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GIMNASIO.Models.EntrenamientoZona", "entrenamientozona")
-                        .WithMany()
-                        .HasForeignKey("EntrenamientoZonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GIMNASIO.Models.EntrenamientoUsuario", b =>
-                {
-                    b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
-
-                    b.HasOne("GIMNASIO.Models.Entrenamiento", "entrenamiento")
-                        .WithMany()
-                        .HasForeignKey("EntrenamientoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

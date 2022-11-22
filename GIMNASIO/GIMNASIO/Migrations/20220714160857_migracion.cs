@@ -293,7 +293,7 @@ namespace GIMNASIO.Migrations
                     ClienteId = table.Column<string>(nullable: true),
                     PedidoTotal = table.Column<int>(nullable: false),
                     MetodoPagoId = table.Column<int>(nullable: true),
-                    PedidoEstadoId = table.Column<int>(nullable: true)
+                    PedidoEstadoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -315,7 +315,7 @@ namespace GIMNASIO.Migrations
                         column: x => x.PedidoEstadoId,
                         principalTable: "tblPedidoEstado",
                         principalColumn: "PedidoEstadoId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
