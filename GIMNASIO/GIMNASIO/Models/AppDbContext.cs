@@ -54,5 +54,22 @@ namespace GIMNASIO.Models
 
         public DbSet<AvanceCliente> tblAvanceCliente { get; set; }
 
+        //maquinaria
+
+        public DbSet<EstadoMaquinaria> tblEstadoMaquinaria { get; set; }
+        public DbSet<TipoMaquinaria> tblTipoMaquinaria { get; set; }
+        public DbSet<Maquinaria> tblMaquinaria { get; set; }
+
+        //mantencion
+
+        public DbSet<EstadoMantencion> tblEstadoMantencion { get; set; }
+        public DbSet<Mantencion> tblMantencion { get; set; }
+
+
+
+
+
+
+
     }
 }
