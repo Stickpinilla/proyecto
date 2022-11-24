@@ -9,11 +9,11 @@ namespace GIMNASIO.Models
     {
         public int EntrenamientoId { get; set; }
 
-        public int Entrenamiento_CupoTotal { get; set; }
+        public int EntrenamientoCupoTotal { get; set; }
 
-        public int Entrenamiento_CupoDisponible { get; set; }
+        public int EntrenamientoCupoDisponible { get; set; }
 
-        public string Entrenamiento_Descripcion { get; set; }
+        public string EntrenamientoDescripcion { get; set; }
 
         public int EntrenamientoZonaId { get; set; }
         public EntrenamientoZona entrenamientozona { get; set; }
