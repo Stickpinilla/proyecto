@@ -1,0 +1,45 @@
+﻿@model GIMNASIO.Models.Maquinaria
+
+@{
+    ViewData["Title"] = "CrearMaquinaria";
+}
+
+<<div class="container text-center">
+    <h2>Nueva Maquinaria</h2>
+    <hr>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CrearMaquinaria" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaquinariaNombre" class="control-label"></label>
+                <input asp-for="MaquinariaNombre" class="form-control" />
+                <span asp-validation-for="MaquinariaNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaquinariaNumeroSerie" class="control-label"></label>
+                <input asp-for="MaquinariaNumeroSerie" class="form-control" />
+                <span asp-validation-for="MaquinariaNumeroSerie" class="text-danger"></span>
+            </div>
+
+            <!--Seleccionar tipo-->
+            <div class="form-group">
+                <label asp-for="TipoMaquinariaId" class="control-label"></label>
+                <select asp-for="TipoMaquinariaId" class="form-control" asp-items="ViewBag.TipoMaquinariaId"></select>
+            </div>
+
+
+            <!--Seleccionar estado-->
+            <div class="form-group">
+                <label asp-for="EstadoMaquinariaId" class="control-label"></label>
+                <select asp-for="EstadoMaquinariaId" class="form-control" asp-items="ViewBag.EstadoMaquinariaId"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Ingresar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
