@@ -18,15 +18,16 @@ namespace GIMNASIO.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime MantencionFechaFin { get; set; }
 
+        public string MantencionDescripcion { get; set; }
+
         public string MantencionProcedimiento { get; set; }
 
-        public int MantencionEstadoId { get; set; }
-
+        public int EstadoMantencionId { get; set; }
         public EstadoMantencion EstadoMantencion { get; set; }
-        public int MantencionMaquinariaId { get; set; }
+
+        public int MaquinariaId { get; set; }
         public Maquinaria Maquinaria { get; set; }
 
-        public int MantencionEncargadoId { get; set; }
         public Cliente Cliente { get; set; }
     }
 }
