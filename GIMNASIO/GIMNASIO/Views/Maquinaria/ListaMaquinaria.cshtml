@@ -113,7 +113,7 @@
                 else if ((int)TempData["Estado"] != 3)
                 {
                     <td>
-                            <a asp-action="" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-primary text-white">
+                            <a asp-controller="Mantencion" asp-action="AgregarMantencionPorMaquina" asp-route-MaquinaId="@M.MaquinariaId" class="btn btn-primary text-white">
                             Reparar
                         </a>
                     </td>
