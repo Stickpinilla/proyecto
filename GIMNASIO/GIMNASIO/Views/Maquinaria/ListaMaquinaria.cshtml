@@ -14,57 +14,61 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
         <span aria-hidden="true">&times;</span>
     </button>
-</div>}
+</div>
+}
 
 <br />
 
 <div class="row justify-content-left">
-    @if ((int)TempData["Estado"] == 1)
+    @switch ((int)TempData["Estado"])
     {
+        case 1:
         <a asp-controller="Maquinaria"
        asp-action="ListaMaquinaria"
        asp-route-EstadoId="2"
-       class="btn btn-outline-danger btn-sm">
+       class="btn btn-danger btn-sm">
             Ver Inhabilitados
         </a>
+        
         <a asp-controller="Maquinaria"
        asp-action="ListaMaquinaria"
        asp-route-EstadoId="3"
        class="btn btn-outline-warning btn-sm">
             Ver En Mantención
         </a>
-    }
-    else if ((int)TempData["Estado"] == 2)
-    {
+        break;
+        
+        case 2:
         <a asp-controller="Maquinaria"
        asp-action="ListaMaquinaria"
        asp-route-EstadoId="1"
-       class="btn btn-outline-primary btn-sm">
+       class="btn btn-primary btn-sm">
             Ver Disponibles
         </a>
 
         <a asp-controller="Maquinaria"
        asp-action="ListaMaquinaria"
        asp-route-EstadoId="3"
-       class="btn btn-outline-warning btn-sm">
+       class="btn btn-warning btn-sm">
             Ver En Mantención
         </a>
-    }
-    else if ((int)TempData["Estado"] == 3)
-    {
+        break;
+
+        case 3:
         <a asp-controller="Maquinaria"
        asp-action="ListaMaquinaria"
        asp-route-EstadoId="1"
-       class="btn btn-outline-primary btn-sm">
+       class="btn btn-primary btn-sm">
             Ver Disponibles
         </a>
-
+        
         <a asp-controller="Maquinaria"
        asp-action="ListaMaquinaria"
        asp-route-EstadoId="2"
-       class="btn btn-outline-danger btn-sm">
+       class="btn btn-danger btn-sm">
             Ver Inhabilitados
         </a>
+        break;
     }
     
     <table class="table">
@@ -75,9 +79,14 @@
                 <th scope="col">Tipo</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Editar</th>
-                <th scope="col">Inhabilitar</th>
+                @if ((int)TempData["Estado"] != 2)
+                { 
+                    <th scope="col">Inhabilitar</th>
+                }
+                else if ((int)TempData["Estado"] != 3)
+                {
                 <th scope="col">Enviar a Mantención</th>
-
+                }
             </tr>
         </thead>
         <tbody>
@@ -89,52 +98,28 @@
                 <td>@M.TipoMaquinaria.TipoMaquinariaNombre</td>
                 <td>@M.EstadoMaquinaria.EstadoMaquinariaNombre</td>
                 <td>
-                    <a asp-action="" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-warning white-text">
+                    <a asp-action="ModificarMaquinaria" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-warning white-text">
                         Modificar
                     </a>
                 </td>
-                <td>
-                    <a asp-action="InhabilitarMaquinaria" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-danger white-text">
-                        Inhabilitar
-                    </a>
-                </td>
-                <td>
-                        <a asp-action="" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-primary text-white">
-                        Reparar
-                    </a>
-                </td>
-
+                @if ((int)TempData["Estado"] != 2)
+                {
+                    <td>
+                        <a asp-action="InhabilitarMaquinaria" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-danger white-text">
+                            Inhabilitar
+                        </a>
+                    </td>
+                }
+                else if ((int)TempData["Estado"] != 3)
+                {
+                    <td>
+                            <a asp-action="" asp-route-MaquinariaId="@M.MaquinariaId" class="btn btn-primary text-white">
+                            Reparar
+                        </a>
+                    </td>
+                }
             </tr>
             }
         </tbody>
     </table>
 </div>
-
-<br />
-<nav class="row justify-content-center" aria-label="Page navigation example">
-    <div class="justify-content-center">
-        <ul class="pagination">
-            @if (Model.Pagina != 0 && Model.Pagina != 1)
-            {
-            <li class="page-item"><a class="page-link" asp-action="ListarProductos" asp-route-Page="@TempData["PreviousPage"]">Anterior</a></li>
-            }
-            else
-            {
-            <li class="page-item disabled"><a class="page-link">Anterior</a></li>
-            }
-            @for (int i = 1; i <= Model.CantidadPagina; i++)
-            {
-            <li class="page-item"><a class="page-link" asp-action="ListarProductos" asp-route-Page="@i">@i</a></li>
-            }
-            @if (Model.Pagina != Model.CantidadPagina)
-            {
-            <li class="page-item"><a class="page-link" asp-action="ListarProductos" asp-route-Page="@TempData["NextPage"]">Siguiente</a></li>
-            }
-            else
-            {
-            <li class="page-item disabled"><a class="page-link">Siguiente</a></li>
-            }
-        </ul>
-    </div>
-</nav>
-<br />

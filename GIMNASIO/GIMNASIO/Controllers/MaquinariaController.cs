@@ -23,7 +23,7 @@ namespace GIMNASIO.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListaMaquinaria(int page, int EstadoId)
+        public IActionResult ListaMaquinaria(int EstadoId)
         {
             int estado = 1;
             if (EstadoId != estado) {
@@ -33,36 +33,14 @@ namespace GIMNASIO.Controllers
             ViewData["TipoId"] = new SelectList(_context.tblTipoMaquinaria.ToList(), "TipoMaquinariaId", "TipoMaquinariaNombre");
             ViewData["EstadoId"] = new SelectList(_context.tblEstadoMaquinaria.ToList(), "EstadoMaquinariaId", "EstadoMaquinariaNombre");
             MaquinariaViewModel viewModel = new MaquinariaViewModel();
-            if (page == 0)
-            {
-                viewModel.Pagina = 1;
-            }
-            else
-            {
-                viewModel.Pagina = page;
-            }
-
-            int muestra = 6;
-            int cantidad = _context.tblMaquinaria.ToList().Count / muestra;
-            if (cantidad % muestra == 0)
-            {
-                viewModel.CantidadPagina = cantidad;
-            }
-            else
-            {
-                viewModel.CantidadPagina = cantidad + 1;
-            }
-
             viewModel.ListaMaquinaria = _context.tblMaquinaria
                 .Where(m => m.EstadoMaquinariaId == estado)
                 .Include(m => m.TipoMaquinaria)
                 .Include(m => m.EstadoMaquinaria)
-                .Skip((viewModel.Pagina - 1) * muestra)
-                .Take(6).ToList();
+                .ToList();
             TempData["NextPage"] = viewModel.Pagina + 1;
             TempData["PreviusPage"] = viewModel.Pagina - 1;
             TempData["Estado"] = estado;
-            //TempData["Mensaje"] = "Maquinaria Ingresada Exitosamente!";
             return View(viewModel);
         }
 
@@ -95,6 +73,38 @@ namespace GIMNASIO.Controllers
             MaquinariaInhabilitada.EstadoMaquinariaId = 2;//estado: inhabilitado
             await _context.SaveChangesAsync();
             return RedirectToAction("ListaMaquinaria", new { EstadoId = 1 });
+        }
+
+        [HttpGet]
+        public IActionResult ModificarMaquinaria(int MaquinariaId)
+        {
+            ViewData["EstadoMaquinariaId"] = new SelectList(_context.tblEstadoMaquinaria.ToList(), "EstadoMaquinariaId", "EstadoMaquinariaNombre");
+            ViewData["TipoMaquinariaId"] = new SelectList(_context.tblTipoMaquinaria.ToList(), "TipoMaquinariaId", "TipoMaquinariaNombre");
+            var Maquinaria = _context.tblMaquinaria.Where(m => m.MaquinariaId == MaquinariaId).FirstOrDefault();
+            return View(Maquinaria);
+        }
+
+        //Editar maquinaria
+        [HttpPost]
+        public async Task<IActionResult> ModificarMaquinaria(Maquinaria M)
+        {
+            if (ModelState.IsValid)
+            {
+                var MaquinariaEditar = _context.tblMaquinaria.Where(m => m.MaquinariaId == M.MaquinariaId).FirstOrDefault();
+
+                MaquinariaEditar.MaquinariaNombre = M.MaquinariaNombre;
+                MaquinariaEditar.MaquinariaNumeroSerie = M.MaquinariaNumeroSerie;
+                MaquinariaEditar.TipoMaquinariaId = M.TipoMaquinariaId;
+                MaquinariaEditar.EstadoMaquinariaId = M.EstadoMaquinariaId;
+
+                await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Maquinaría Modificada exitosamente!";
+                return RedirectToAction("ListaMaquinaria", new { EstadoId = M.EstadoMaquinariaId });
+            }
+            else
+            {
+                return View(M);
+            }
         }
 
 
