@@ -87,5 +87,18 @@ namespace GIMNASIO.Controllers
             TempData["Estado"] = estado;
             return View(lista);
         }
+
+        [HttpGet]
+        public IActionResult ModificarMantencion(int MantencionId)
+        {
+            var Mantencion = _context.tblMantencion
+                .Where(m => m.MantencionId == MantencionId)
+                .Include(m => m.EstadoMantencion)
+                .Include(m => m.Maquinaria)
+                .FirstOrDefault();
+
+            ViewData["EstadoMantencionId"] = new SelectList(_context.tblEstadoMantencion.ToList(), "EstadoMantencionId", "EstadoMantencionNombre");
+            return View(Mantencion);
+        }
     }
 }
