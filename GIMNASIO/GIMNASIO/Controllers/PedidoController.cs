@@ -25,7 +25,7 @@ namespace GIMNASIO.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> Index(CarroCompraViewModel P)
+        public IActionResult Index(CarroCompraViewModel P)
         {
             var Cliente = _context.Users.Where(c => c.Id == P.Id).FirstOrDefault();
             var Metodo = _context.tblMetodoPago.Where(c => c.MetodoPagoId == P.MetodoPagoId).FirstOrDefault();
