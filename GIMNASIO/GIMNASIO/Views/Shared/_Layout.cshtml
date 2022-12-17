@@ -38,7 +38,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        
+
 
                         <!--con un if para ocultar los administradores de ligas, equipos. productos a los clientes-->
                         @if (signInManager.IsSignedIn(User))
@@ -68,6 +68,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="ListarProductos">Productos</a>
                                 </li>
+
+                                <!-- ver Entrenamiento-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Entrenamiento" asp-action="ListarEntrenamiento">Entrenamiento</a>
+                                </li>
                             }
                             var AccesoCl = User.Claims.Where(x => x.Type == "Cliente").FirstOrDefault();
                             if (AccesoCl != null)
@@ -78,11 +83,6 @@
                                 </li>
                             }
                         }
-
-
-
-
-
 
                     </ul>
                 </div>

@@ -1,0 +1,74 @@
+﻿@model EntrenamientoViewModel
+
+<div class="container text-center">
+    <h2>Entrenamientos</h2>
+    <hr>
+    <a asp-controller="Entrenamiento" asp-action="CrearEntrenamiento" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar Entrenamiento</a>
+</div>
+<br />
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Cupo total
+            </th>
+            <th>
+                Cupo disponible
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Zona de Entrenamiento
+            </th>
+            <th>
+                Estado del Entrenamiento
+            </th>
+            <th>
+                Categoria
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var E in Model.ListarEntrenamiento)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => E.EntrenamientoCupoTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => E.EntrenamientoCupoDisponible)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => E.EntrenamientoDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => E.entrenamientozona.EntrenamientoZona_Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => E.entrenamientoestado.Entrenamiento_NombreEstado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => E.entrenamientocategoria.EntrenamientoCategoria_Nombre)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@E.EntrenamientoId">Edit</a>
+                    <a asp-action="EliminarEntrenamiento" asp-route-EntrenamientoId="@E.EntrenamientoId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
