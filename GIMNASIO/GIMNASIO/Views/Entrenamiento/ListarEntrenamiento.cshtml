@@ -65,7 +65,7 @@
                     @Html.DisplayFor(modelItem => E.entrenamientocategoria.EntrenamientoCategoria_Nombre)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@E.EntrenamientoId">Edit</a>
+                    <a asp-action="ModificarEntrenamiento" asp-route-EntrenamientoId="@E.EntrenamientoId">Editar</a>
                     <a asp-action="EliminarEntrenamiento" asp-route-EntrenamientoId="@E.EntrenamientoId">Eliminar</a>
                 </td>
             </tr>

@@ -78,5 +78,38 @@ namespace GIMNASIO.Controllers
             return RedirectToAction(nameof(ListarEntrenamiento));
         }
 
+        //Editar Entrenamiento  
+       public IActionResult ModificarEntrenamiento(int EntrenamientoId)
+        {
+            ViewData["EntrenamientoZonaId"] = new SelectList(_context.tblEntrenamientoZona.ToList(), "EntrenamientoZonaId", "EntrenamientoZona_Nombre");
+            ViewData["EntrenamientoEstadoId"] = new SelectList(_context.tblEntrenamientoEstado.ToList(), "EntrenamientoEstadoId", "Entrenamiento_NombreEstado");
+            ViewData["EntrenamientoCategoriaId"] = new SelectList(_context.tblEntrenamientoCategoria.ToList(), "EntrenamientoCategoriaId", "EntrenamientoCategoria_Nombre");
+            var E = _context.tblEntrenamiento.Where(e => e.EntrenamientoId.Equals(EntrenamientoId)).FirstOrDefault();
+            return View(E);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ModificarEntrenamiento(Entrenamiento E)
+        {
+            if (ModelState.IsValid)
+            {
+                var EntrenamientoModificada = _context.tblEntrenamiento.Where(e => e.EntrenamientoId.Equals(e.EntrenamientoId)).FirstOrDefault();
+                EntrenamientoModificada.EntrenamientoCupoTotal = E.EntrenamientoCupoTotal;
+                EntrenamientoModificada.EntrenamientoCupoDisponible = E.EntrenamientoCupoDisponible;
+                EntrenamientoModificada.EntrenamientoDescripcion = E.EntrenamientoDescripcion;
+                EntrenamientoModificada.EntrenamientoEstadoId = E.EntrenamientoEstadoId;
+                EntrenamientoModificada.EntrenamientoZonaId = E.EntrenamientoZonaId;
+                EntrenamientoModificada.EntrenamientoCategoriaId = E.EntrenamientoCategoriaId;
+                await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Entrenamiento Modificado Exitosamente!";
+                return RedirectToAction(nameof(ListarEntrenamiento));
+            }
+            else
+            {
+                return View(E);
+            }
+        }
+
+
     }
 }
