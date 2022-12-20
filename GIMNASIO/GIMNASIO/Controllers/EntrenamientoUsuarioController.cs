@@ -33,27 +33,36 @@ namespace GIMNASIO.Controllers
             listaren.ListarEntrenamiento = _context.tblEntrenamiento
                 .Include(e => e.entrenamientocategoria)
                .Include(e => e.entrenamientoestado)
-               .Include(e => e.entrenamientozona).ToList();
+               .Include(e => e.entrenamientozona).Where(e => e.EntrenamientoCupoDisponible > 0).ToList();
             return View(listaren);
         }
 
-        public async Task<IActionResult> EntrenamiendoAnadir(EntrenamientoUsuario P, IServiceProvider services, Cliente C)
+        public async Task<IActionResult> EntrenamiendoAnadir(EntrenamientoUsuario EN, int EntrenamientoId)
         {
-            ISession session = services
-                .GetRequiredService<IHttpContextAccessor>()
-                .HttpContext.Session;
-
-            var Cliente = _context.Users.Where(c => c.Id == C.Id).FirstOrDefault();
-            var Entrana = _context.tblEntrenamiento.Where(c => c.EntrenamientoId == P.EntrenamientoId).FirstOrDefault();
-
+            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
+            var Entrenamiento = _context.tblEntrenamiento.Where(e => e.EntrenamientoId.Equals(EntrenamientoId)).FirstOrDefault();
             if (ModelState.IsValid)
             {
-                _context.Add(P);
+
+                EN.Cliente = Cliente;
+                EN.entrenamiento = Entrenamiento;
+                _context.Add(EN);
+                Entrenamiento.EntrenamientoCupoDisponible--;
+                if (Entrenamiento.EntrenamientoCupoDisponible <= 10)
+                {
+                    Entrenamiento.EntrenamientoEstadoId = 1002;
+                }
+                if (Entrenamiento.EntrenamientoCupoDisponible == 0)
+                {
+                    Entrenamiento.EntrenamientoEstadoId = 4;
+
+                }
+
                 await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "Maquinaria Agregado Exitosamente!";
                 return RedirectToAction(nameof(ListarEntrenamiento));
             }
-            return View(P);
+            return View(EN);
         
         }
 
