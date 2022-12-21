@@ -64,22 +64,7 @@ namespace GIMNASIO.Controllers
             return View(EN);
         }
 
-        //empieza mis pedidos
-        public async Task<IActionResult> MisPedidos()
-        {
-            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
-            MisPedidosViewModel Mvm = new MisPedidosViewModel
-            {
-                cliente = Cliente,
-                ListaPedidos = _context.tblPedido
-                .Where(P => P.Cliente.Id == Cliente.Id)
-                .Include(m => m.MetodoPago)
-                .Include(e => e.PedidoEstado)
-                .ToList()
-            };
-            return View(Mvm);
-        }
-
+  
 
         public async Task<IActionResult> MisEntrenamientos()
         {
@@ -95,13 +80,6 @@ namespace GIMNASIO.Controllers
                .ToList()
             };
             return View(EU);
-        }
-
-        //El cliente ve sus datos
-        public async Task<IActionResult> MisDatos()
-        {
-            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
-            return View(Cliente);
         }
 
 
