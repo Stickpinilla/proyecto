@@ -1,0 +1,68 @@
+﻿
+<div>
+    <div class="container">
+        @model EntrenamientoUsuarioViewModel
+
+        @{
+            ViewData["Title"] = "Mis Entrenamientos";
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+
+        <div style="background-color: #00ffff" class="card card-cascade narrower view view-cascade gradient-card-header blue-gradient narrower py-2 mb-3 d-flex justify-content-between align-items-center">
+            <h2 href="" class="white-text mx-3">Historial de Entrenamientos</h2>
+        </div>
+
+        <hr />
+
+        <table class="table table-striped">
+            <thead style="background-color:#00ffff">
+                <tr>
+                    <td>Rut</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Direccion</td>
+                    <td>Correo</td>
+                    <td>Ciudad</td>
+                    <td><strong>Telefono: </strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.cliente.Rut</td>
+                    <td>@Model.cliente.Nombres</td>
+                    <td>@Model.cliente.ApellidoP</td>
+                    <td>@Model.cliente.Direccion</td>
+                    <td>@Model.cliente.Email</td>
+                    <td>@Model.cliente.Ciudad</td>
+                    <td>@Model.cliente.Telefono</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <br />
+
+        <div class="row justify-content-between">
+            @foreach (var P in Model.ListaEntrenamiento)
+            {
+                <div class="card mr-3 ml-3 mb-3" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Descripcion: </strong>@P.entrenamiento.EntrenamientoDescripcion</li>
+                            <li class="list-group-item"><strong>Estado: </strong>@P.entrenamiento.entrenamientoestado.Entrenamiento_NombreEstado</li>
+                            <li class="list-group-item"><strong>Zona: </strong>@P.entrenamiento.entrenamientozona.EntrenamientoZona_Nombre</li>
+                            <li class="list-group-item"><strong>Categoria: </strong>@P.entrenamiento.entrenamientocategoria.EntrenamientoCategoria_Nombre</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <br />
+        <div>
+            <a class="btn btn-outline-dark" asp-controller="Home" asp-action="Index" style="margin-left: 500px">
+                Volver Home
+            </a>
+        </div>
+    </div>
+</div>
