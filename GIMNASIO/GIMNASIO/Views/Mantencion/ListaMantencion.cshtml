@@ -2,8 +2,6 @@
 
 <div class="container text-center">
     <h2>Lista de Mantenciones</h2>
-    <hr>
-    <a asp-controller="Mantencion" asp-action="AgregarMantencion" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
 </div>
 <br />
 
@@ -94,7 +92,7 @@
                     </a>
                 </td>
                 <td>
-                        <a asp-action="DetallesMantencion" asp-route-MantencionId="@M.MantencionId" class="btn btn-primary white-text">
+                        <a asp-action="DetalleMantencion" asp-route-MantencionId="@M.MantencionId" class="btn btn-primary white-text">
                         Detalles
                     </a>
                 </td>
