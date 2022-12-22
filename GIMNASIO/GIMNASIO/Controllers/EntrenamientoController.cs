@@ -47,6 +47,10 @@ namespace GIMNASIO.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(E);
+                var ZonaEntrenamiento = _context.tblEntrenamientoZona
+                    .Where(z => z.EntrenamientoZonaId == E.EntrenamientoZonaId)
+                    .FirstOrDefault();
+                ZonaEntrenamiento.EntrenamientoZona_Disponibilidad = false;
                 await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "Maquinaria Agregado Exitosamente!";
                 return RedirectToAction(nameof(ListarEntrenamiento));
@@ -72,6 +76,10 @@ namespace GIMNASIO.Controllers
         public async Task<IActionResult> EliminarEntrenamiento(Entrenamiento E)
         {
             var EntrenamientoEliminado = _context.tblEntrenamiento.Where(e => e.EntrenamientoId == E.EntrenamientoId).FirstOrDefault();
+            var ZonaActual = _context.tblEntrenamientoZona
+                    .Where(za => za.EntrenamientoZonaId == E.EntrenamientoZonaId)
+                    .FirstOrDefault();
+            ZonaActual.EntrenamientoZona_Disponibilidad = true;
             _context.Entry(EntrenamientoEliminado).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
             TempData["Mensaje"] = "Entrenamiento Eliminado Exitosamente!";
@@ -94,12 +102,24 @@ namespace GIMNASIO.Controllers
             if (ModelState.IsValid)
             {
                 var EntrenamientoModificada = _context.tblEntrenamiento.Where(e => e.EntrenamientoId.Equals(e.EntrenamientoId)).FirstOrDefault();
+
+                var ZonaActual = _context.tblEntrenamientoZona
+                    .Where(za => za.EntrenamientoZonaId == EntrenamientoModificada.EntrenamientoZonaId)
+                    .FirstOrDefault();
+                var ZonaNueva = _context.tblEntrenamientoZona
+                    .Where(zn => zn.EntrenamientoZonaId == E.EntrenamientoZonaId)
+                    .FirstOrDefault();
+
                 EntrenamientoModificada.EntrenamientoCupoTotal = E.EntrenamientoCupoTotal;
                 EntrenamientoModificada.EntrenamientoCupoDisponible = E.EntrenamientoCupoDisponible;
                 EntrenamientoModificada.EntrenamientoDescripcion = E.EntrenamientoDescripcion;
                 EntrenamientoModificada.EntrenamientoEstadoId = E.EntrenamientoEstadoId;
                 EntrenamientoModificada.EntrenamientoZonaId = E.EntrenamientoZonaId;
                 EntrenamientoModificada.EntrenamientoCategoriaId = E.EntrenamientoCategoriaId;
+
+                ZonaActual.EntrenamientoZona_Disponibilidad = true;
+                ZonaNueva.EntrenamientoZona_Disponibilidad = false;
+                
                 await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "Entrenamiento Modificado Exitosamente!";
                 return RedirectToAction(nameof(ListarEntrenamiento));
