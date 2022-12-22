@@ -100,5 +100,38 @@ namespace GIMNASIO.Controllers
             ViewData["EstadoMantencionId"] = new SelectList(_context.tblEstadoMantencion.ToList(), "EstadoMantencionId", "EstadoMantencionNombre");
             return View(Mantencion);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ModificarMantencion(Mantencion M)
+        {
+            
+                var MantencionEditar = _context.tblMantencion.Where(m => m.MantencionId == M.MantencionId).FirstOrDefault();
+
+                MantencionEditar.MantencionDescripcion = M.MantencionDescripcion;
+                MantencionEditar.MantencionProcedimiento = M.MantencionProcedimiento;
+                if (M.MantencionFechaFin.ToString() != "01/01/0001 12:00:00 a. m.")
+                {
+                    MantencionEditar.MantencionFechaFin = M.MantencionFechaFin;
+                }
+                MantencionEditar.EstadoMantencionId = M.EstadoMantencionId;
+
+                await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Mantencion Modificada exitosamente!";
+                return RedirectToAction("ListaMantencion", new { EstadoId = M.EstadoMantencionId });
+            
+
+
+        }
+
+        [HttpGet]
+        public IActionResult DetalleMantencion(int MantencionId)
+        {
+            var DetalleMantencion = _context.tblMantencion
+                .Where(m => m.MantencionId == MantencionId)
+                .Include(m => m.EstadoMantencion)
+                .Include(m => m.Maquinaria)
+                .FirstOrDefault();
+            return View(DetalleMantencion);
+        }
     }
 }
