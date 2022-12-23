@@ -73,6 +73,8 @@ namespace GIMNASIO
             app.UseAuthorization();
             app.UseSession();
 
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "../Rotativa/Windows");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
