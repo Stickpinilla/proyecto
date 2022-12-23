@@ -12,7 +12,7 @@ namespace GIMNASIO.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=tcp:gimnasiodbserver.database.windows.net,1433;Initial Catalog=GIMNASIO_db;Persist Security Info=False;User ID=jonathan;Password=jonY_2205;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDGIMNASIO;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BDGIMNASIO;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False base de datos local
            
         }
@@ -20,6 +20,20 @@ namespace GIMNASIO.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Membresia>()
+                .HasOne(p => p.Cliente)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Pedido>()
+                .HasOne(p => p.Cliente)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Mantencion>()
+                .HasOne(p => p.Cliente)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Categoria> tblCategorias { get; set; }
