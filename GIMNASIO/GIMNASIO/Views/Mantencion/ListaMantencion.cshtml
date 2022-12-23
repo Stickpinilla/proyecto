@@ -1,0 +1,103 @@
+﻿@model ICollection<Mantencion>
+
+<div class="container text-center">
+    <h2>Lista de Mantenciones</h2>
+</div>
+<br />
+
+@if (TempData["Mensaje"] != null)
+{
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    @TempData["Mensaje"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+
+<br />
+
+<div class="row justify-content-left">
+    @switch ((int)TempData["Estado"])
+    {
+        case 1:
+        <a asp-controller="Mantencion"
+           asp-action="ListaMantencion"
+           asp-route-EstadoId="2"
+           class="btn btn-danger btn-sm">
+            Ver Canceladas
+        </a>
+
+        <a asp-controller="Mantencion"
+           asp-action="ListaMantencion"
+           asp-route-EstadoId="3"
+           class="btn btn-primary btn-sm">
+            Ver Terminadas
+        </a>
+        break;
+        
+        case 2:
+        <a asp-controller="Mantencion"
+            asp-action="ListaMantencion"
+            asp-route-EstadoId="1"
+            class="btn btn-success btn-sm">
+                Ver En Proceso
+        </a>
+
+       <a asp-controller="Mantencion"
+           asp-action="ListaMantencion"
+           asp-route-EstadoId="3"
+           class="btn btn-primary btn-sm">
+                Ver Terminadas
+       </a>
+        break;
+
+        case 3:
+        <a asp-controller="Mantencion"
+           asp-action="ListaMantencion"
+           asp-route-EstadoId="1"
+           class="btn btn-success btn-sm">
+                    Ver En Proceso
+        </a>
+
+        <a asp-controller="Mantencion"
+           asp-action="ListaMantencion"
+           asp-route-EstadoId="2"
+           class="btn btn-danger btn-sm">
+                    Ver Cancelada
+        </a>
+        break;
+    }
+    
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha de Ingreso</th>
+                <th scope="col">Maquina</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var M in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => M.MantencionFechaIngreso)</td>
+                <td>@M.Maquinaria.MaquinariaNombre</td>
+                <td>@M.EstadoMantencion.EstadoMantencionNombre</td>
+                <td>
+                    <a asp-action="ModificarMantencion" asp-route-MantencionId="@M.MantencionId" class="btn btn-warning white-text">
+                        Editar
+                    </a>
+                </td>
+                <td>
+                        <a asp-action="DetalleMantencion" asp-route-MantencionId="@M.MantencionId" class="btn btn-primary white-text">
+                        Detalles
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,56 @@
+﻿@model GIMNASIO.Models.Entrenamiento
+
+@{
+    ViewData["Title"] = "Eliminar Entrenamiento";
+}
+
+
+<h3>¿Esta seguro de eliminar el entrenamiento?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Cupo Total:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EntrenamientoCupoTotal)
+        </dd>
+        <dt class="col-sm-2">
+            Cupo disponible
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EntrenamientoCupoDisponible)
+        </dd>
+        <dt class="col-sm-2">
+            Descripcion:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EntrenamientoDescripcion)
+        </dd>
+        <dt class="col-sm-2">
+            Zona de entrenamiento:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.entrenamientozona.EntrenamientoZona_Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            Estado:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.entrenamientoestado.Entrenamiento_NombreEstado)
+        </dd>
+        <dt class="col-sm-2">
+            Categoria:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.entrenamientocategoria.EntrenamientoCategoria_Nombre)
+        </dd>
+    </dl>
+
+    <form asp-action="EliminarEntrenamiento">
+        <input type="hidden" asp-for="EntrenamientoId" />
+        <input type="hidden" asp-for="EntrenamientoZonaId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
