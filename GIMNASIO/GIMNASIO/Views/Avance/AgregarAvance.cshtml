@@ -1,0 +1,42 @@
+﻿<div class="container">
+    @model AvanceViewModel
+
+
+    <div class="text-center">
+        <h2>Nuevo Avance de Cliente</h2>
+        <hr>
+    </div>
+    <br>
+
+    <div class="row">
+        <form class="col-md-12" asp-action="AgregarAvance">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="AvanceCliente_Peso" class="control-label"></label>
+                        <input asp-for="AvanceCliente_Peso" step=".1" type="number" class="form-control" />
+                        <span asp-validation-for="AvanceCliente_Peso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AvanceCliente_Altura" class="control-label"></label>
+                        <input asp-for="AvanceCliente_Altura" step=".01" type="number" class="form-control" />
+                        <span asp-validation-for="AvanceCliente_Altura" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AvanceCliente_Fecha" class="control-label"></label>
+                        <input asp-for="AvanceCliente_Fecha" type="date" class="form-control" />
+                        <span asp-validation-for="AvanceCliente_Fecha" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <input asp-for="Id" type="hidden"/>
+
+                <input type="submit" value="Guardar" class="btn btn-outline-info btn-block" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
