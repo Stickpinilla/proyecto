@@ -16,7 +16,10 @@ namespace GIMNASIO.Models
         public Double AvanceCliente_Altura { get; set; }
 
         public float AvanceCliente_IMC { get; set; }
-         public DateTime AvanceCliente_Fecha { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime AvanceCliente_Fecha { get; set; }
         public string AvanceCliente_Situacion { get; set; }
 
         public Cliente Cliente { get; set; }
