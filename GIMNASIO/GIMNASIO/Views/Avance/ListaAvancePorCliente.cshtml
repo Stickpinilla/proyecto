@@ -1,0 +1,46 @@
+﻿@model AvanceViewModel
+
+<div class="container text-center">
+    <h2>Avance de Cliente</h2>
+    <hr>
+    <a asp-controller="Avance" asp-action="AgregarAvance" asp-route-ClienteId="@Model.Id" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+</div>
+<br>
+
+<table class="table table-striped">
+    <thead class="text-center thead-dark">
+        <tr>
+            <td>Fecha</td>
+            <td>Peso</td>
+            <td>Altura</td>
+            <td>IMC</td>
+            <td>Avance</td>
+            <td>Editar</td>
+            <td>Eliminar</td>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var A in Model.ListaAvance)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => A.AvanceCliente_Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => A.AvanceCliente_Peso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => A.AvanceCliente_Altura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => A.AvanceCliente_IMC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => A.AvanceCliente_Situacion)
+                </td>
+                <td><a asp-action="ModificarAvance" asp-route-Id="@A.AvanceClienteId" asp-route-ClienteId="@A.AvanceClienteId" class="ml-4 btn btn-warning text-white"><i class="fa-solid fa-file-pen"></i></a></td>
+                <td><a asp-action="EliminarAvance" asp-route-Id="@A.AvanceClienteId" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
