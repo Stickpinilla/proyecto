@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -288,6 +289,46 @@ namespace GIMNASIO.Controllers
                 .ToList()
             };
             return View(Pvm);
+        }
+
+        //pdf
+       /* public IActionResult ImprimirVenta(int PedidoId)
+        {
+            MisPedidosViewModel modelo = _context.tblPedido
+                .Include(dv => dv.ListaDetallePedido)
+                .Where(v => v.PedidoId == PedidoId)
+                .Select(v => new MisPedidosViewModel()
+                {
+                    PedidoId = v.PedidoId
+                }).FirstOrDefault();
+
+            return new ViewAsPdf("ImprimirVenta", modelo)
+            {
+                FileName = $"Venta {modelo.PedidoId}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
+        }*/
+
+        public IActionResult ImprimirVenta(int PedidoId)
+        {
+            PedidoDetalleViewModel Pvm = new PedidoDetalleViewModel
+            {
+                Pedido = _context.tblPedido.Where(p => p.PedidoId == PedidoId)
+                .Include(m => m.MetodoPago)
+                .Include(c => c.Cliente)
+                .Include(e => e.PedidoEstado)
+                .FirstOrDefault(),
+                ListaDetalle = _context.tblPedidoDetalle.Where(pd => pd.PedidoId == PedidoId)
+                .Include(dt => dt.Producto)
+                .ToList()
+            };
+            return new ViewAsPdf("ImprimirVenta", Pvm)
+            {
+                FileName = $"Venta {Pvm.Pedido}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
 
 
