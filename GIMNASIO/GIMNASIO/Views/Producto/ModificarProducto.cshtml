@@ -15,17 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductoId" />
             <div class="form-group">
-                <label asp-for="ProductoNombre" class="control-label"></label>
+                <label asp-for="ProductoNombre" class="control-label">Nombre</label>
                 <input asp-for="ProductoNombre" class="form-control" />
                 <span asp-validation-for="ProductoNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductoPrecio" class="control-label"></label>
+                <label asp-for="ProductoPrecio" class="control-label">Precio</label>
                 <input asp-for="ProductoPrecio" class="form-control" />
                 <span asp-validation-for="ProductoPrecio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductoDesc" class="control-label"></label>
+                <label asp-for="ProductoDesc" class="control-label">Descripción</label>
                 <input asp-for="ProductoDesc" class="form-control" />
                 <span asp-validation-for="ProductoDesc" class="text-danger"></span>
             </div>
@@ -33,7 +33,7 @@
 
             <!--Para subir la imagen-->
             <div class="form-group">
-                <label asp-for="ImagenFile" class="control-label"></label>
+                <label asp-for="ImagenFile" class="control-label">Imagen</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
@@ -46,17 +46,17 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label"></label>
+                <label asp-for="CategoriaId" class="control-label">Categoría</label>
                 <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
                 <span asp-validation-for="CategoriaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EstadoId" class="control-label"></label>
+                <label asp-for="EstadoId" class="control-label">Estado</label>
                 <select asp-for="EstadoId" class="form-control" asp-items="ViewBag.EstadoId"></select>
                 <span asp-validation-for="EstadoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -15,7 +15,7 @@
             <td>Rut</td>
             <td>Nombre</td>
             <td>Correo</td>
-            <td colspan="2">Editar/Eliminar</td>
+            <td>Eliminar</td>
             <td>Membresia</td>
             <td>Avances</td>
         </tr>
@@ -33,7 +33,6 @@
             <td>
                 @Html.DisplayFor(modelItem => C.Correo)
             </td>
-            <td><a asp-action="ModificarCliente" asp-route-Id="@C.Id" class="ml-4 btn btn-warning text-white"><i class="fa-solid fa-file-pen"></i></a></td>
             <td><a asp-action="EliminarCliente" asp-route-Id="@C.Id" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
             <td><a asp-controller="Membresia" asp-action="ListarMembresia" asp-route-Id="@C.Id" class="btn btn-primary">Membresía</a></td>
             <td><a asp-controller="Avance" asp-action="ListaAvancePorCliente" asp-route-Id="@C.Id" class="btn btn-primary">Avance</a></td>

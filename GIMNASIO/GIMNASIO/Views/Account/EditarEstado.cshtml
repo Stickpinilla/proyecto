@@ -32,7 +32,7 @@
                 <input type="hidden" asp-for="PedidoId" />
 
                 <div class="form-group">
-                    <label asp-for="PedidoEstadoId" class="control-label"></label>
+                    <label asp-for="PedidoEstadoId" class="control-label">Estado del Pedido</label>
                     <select asp-for="PedidoEstadoId" class="form-control" asp-items="ViewBag.PedidoEstadoId"></select>
                     <span asp-validation-for="PedidoEstadoId" class="text-danger"></span>
                 </div>

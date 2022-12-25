@@ -7,6 +7,16 @@
 </div>
 <br>
 
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <table class="table table-striped">
     <thead class="text-center thead-dark">
         <tr>
@@ -16,34 +26,33 @@
             <td>Tipo</td>
             <td>Metodo de Pago</td>
             <td>Estado</td>
-            <td colspan="2">Editar/Eliminar</td>
+            <td>Eliminar</td>
         </tr>
     </thead>
     <tbody class="text-center">
         @foreach (var M in Model.ListaMembresias)
         {
-        <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => M.MembresiaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => M.FechaComienzo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => M.FechaTermino)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => M.TipoMembresia.TipoMembresiaNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => M.MetodoPagoMembresia.MetodoPagoMembresiaNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => M.EstadoMembresia.EstadoMembresiaNombre)
-            </td>
-            <td><a asp-action="ModificarMembresia" asp-route-Id="@M.MembresiaId" asp-route-ClienteId="@M.Cliente.Id" class="ml-4 btn btn-warning text-white"><i class="fa-solid fa-file-pen"></i></a></td>
-            <td><a asp-action="EliminarMembresia" asp-route-Id="@M.MembresiaId" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
-        </tr>
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => M.MembresiaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.FechaComienzo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.FechaTermino)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.TipoMembresia.TipoMembresiaNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.MetodoPagoMembresia.MetodoPagoMembresiaNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => M.EstadoMembresia.EstadoMembresiaNombre)
+                </td>
+                <td><a asp-action="EliminarMembresia" asp-route-MembresiaId="@M.MembresiaId" asp-route-ClienteId="@M.Cliente.Id" class="mr-4 btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+            </tr>
         }
     </tbody>
 </table>

@@ -31,7 +31,7 @@
 
 
             <div class="form-group">
-                <label asp-for="MantencionDescripcion" class="control-label"></label>
+                <label asp-for="MantencionDescripcion" class="control-label">Descripción/Fallas</label>
                 <textarea asp-for="MantencionDescripcion" class="form-control"></textarea>
                 <span asp-validation-for="MantencionDescripcion" class="text-danger"></span>
             </div>
@@ -39,7 +39,7 @@
 
             <!--Seleccionar estado-->
             <div class="form-group">
-                <label asp-for="EstadoMantencionId" class="control-label"></label>
+                <label asp-for="EstadoMantencionId" class="control-label">Estado de Manteción</label>
                 <select asp-for="EstadoMantencionId" class="form-control" asp-items="ViewBag.EstadoMantencionId"></select>
             </div>
 

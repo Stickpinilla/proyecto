@@ -15,23 +15,23 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaquinariaId" />
             <div class="form-group">
-                <label asp-for="MaquinariaNombre" class="control-label"></label>
+                <label asp-for="MaquinariaNombre" class="control-label">Nombre</label>
                 <input asp-for="MaquinariaNombre" class="form-control" />
                 <span asp-validation-for="MaquinariaNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaquinariaNumeroSerie" class="control-label"></label>
+                <label asp-for="MaquinariaNumeroSerie" class="control-label">Numero de Serie</label>
                 <input asp-for="MaquinariaNumeroSerie" class="form-control" />
                 <span asp-validation-for="MaquinariaNumeroSerie" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="EstadoMaquinariaId" class="control-label"></label>
+                <label asp-for="EstadoMaquinariaId" class="control-label">Estado</label>
                 <select asp-for="EstadoMaquinariaId" class="form-control" asp-items="ViewBag.EstadoMaquinariaId"></select>
                 <span asp-validation-for="EstadoMaquinariaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipoMaquinariaId" class="control-label"></label>
+                <label asp-for="TipoMaquinariaId" class="control-label">Tipo de Maquinaria</label>
                 <select asp-for="TipoMaquinariaId" class="form-control" asp-items="ViewBag.TipoMaquinariaId"></select>
                 <span asp-validation-for="TipoMaquinariaId" class="text-danger"></span>
             </div>

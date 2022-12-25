@@ -1,60 +1,57 @@
 ﻿@model GIMNASIO.Models.Entrenamiento
 
-    @{
-        ViewData["Title"] = "Crear Entrenamiento";
-    }
+@{
+    ViewData["Title"] = "Crear Entrenamiento";
+}
 
-    <h1>Crear Entrenamiento</h1>
+<div class="container text-center">
+    <h2>Registro de Entrenamiento</h2>
+    <hr>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CrearEntrenamiento">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EntrenamientoCupoTotal" class="control-label">Cupo Total</label>
+                <input asp-for="EntrenamientoCupoTotal" class="form-control" />
+                <span asp-validation-for="EntrenamientoCupoTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntrenamientoCupoDisponible" class="control-label">Cupo Disponible</label>
+                <input asp-for="EntrenamientoCupoDisponible" class="form-control" />
+                <span asp-validation-for="EntrenamientoCupoDisponible" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntrenamientoDescripcion" class="control-label">Descripción</label>
+                <input asp-for="EntrenamientoDescripcion" class="form-control" />
+                <span asp-validation-for="EntrenamientoDescripcion" class="text-danger"></span>
+            </div>
 
-    <h4>Entrenamiento</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="CrearEntrenamiento">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="EntrenamientoCupoTotal" class="control-label"></label>
-                    <input asp-for="EntrenamientoCupoTotal" class="form-control" />
-                    <span asp-validation-for="EntrenamientoCupoTotal" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="EntrenamientoCupoDisponible" class="control-label"></label>
-                    <input asp-for="EntrenamientoCupoDisponible" class="form-control" />
-                    <span asp-validation-for="EntrenamientoCupoDisponible" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="EntrenamientoDescripcion" class="control-label"></label>
-                    <input asp-for="EntrenamientoDescripcion" class="form-control" />
-                    <span asp-validation-for="EntrenamientoDescripcion" class="text-danger"></span>
-                </div>
+            <!--Seleccionar estado-->
+            <div class="form-group">
+                <label asp-for="EntrenamientoZonaId" class="control-label">Zona disponible</label>
+                <select asp-for="EntrenamientoZonaId" class="form-control" asp-items="ViewBag.EntrenamientoZonaId"></select>
+            </div>
 
-                <!--Seleccionar estado-->
-                <div class="form-group">
-                    <label asp-for="EntrenamientoZonaId" class="control-label"></label>
-                    <select asp-for="EntrenamientoZonaId" class="form-control" asp-items="ViewBag.EntrenamientoZonaId"></select>
-                </div>
-
-                <!--Seleccionar estado-->
-                <div class="form-group">
-                    <label asp-for="EntrenamientoEstadoId" class="control-label"></label>
-                    <select asp-for="EntrenamientoEstadoId" class="form-control" asp-items="ViewBag.EntrenamientoEstadoId"></select>
-                </div>
-                <!--Seleccionar estado-->
-                <div class="form-group">
-                    <label asp-for="EntrenamientoCategoriaId" class="control-label"></label>
-                    <select asp-for="EntrenamientoCategoriaId" class="form-control" asp-items="ViewBag.EntrenamientoCategoriaId"></select>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
+            <!--Seleccionar estado-->
+            <div class="form-group">
+                <label asp-for="EntrenamientoEstadoId" class="control-label">Estado</label>
+                <select asp-for="EntrenamientoEstadoId" class="form-control" asp-items="ViewBag.EntrenamientoEstadoId"></select>
+            </div>
+            <!--Seleccionar estado-->
+            <div class="form-group">
+                <label asp-for="EntrenamientoCategoriaId" class="control-label">Categoría</label>
+                <select asp-for="EntrenamientoCategoriaId" class="form-control" asp-items="ViewBag.EntrenamientoCategoriaId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
+</div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

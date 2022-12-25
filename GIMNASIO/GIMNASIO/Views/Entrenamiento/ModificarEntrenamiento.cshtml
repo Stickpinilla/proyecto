@@ -4,42 +4,44 @@
     ViewData["Title"] = "ModificarEntrenamiento";
 }
 
-<h1>ModificarEntrenamiento</h1>
+<div class="container text-center">
+    <h2>Edición de Entrenamiento</h2>
+    <hr>
+</div>
+<br>
 
-<h4>Entrenamiento</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ModificarEntrenamiento">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="EntrenamientoId" />
             <div class="form-group">
-                <label asp-for="EntrenamientoCupoTotal" class="control-label"></label>
+                <label asp-for="EntrenamientoCupoTotal" class="control-label">Cupo Total</label>
                 <input asp-for="EntrenamientoCupoTotal" class="form-control" />
                 <span asp-validation-for="EntrenamientoCupoTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EntrenamientoCupoDisponible" class="control-label"></label>
+                <label asp-for="EntrenamientoCupoDisponible" class="control-label">Cupo Disponible</label>
                 <input asp-for="EntrenamientoCupoDisponible" class="form-control" />
                 <span asp-validation-for="EntrenamientoCupoDisponible" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EntrenamientoDescripcion" class="control-label"></label>
+                <label asp-for="EntrenamientoDescripcion" class="control-label">Descripción</label>
                 <input asp-for="EntrenamientoDescripcion" class="form-control" />
                 <span asp-validation-for="EntrenamientoDescripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EntrenamientoZonaId" class="control-label"></label>
+                <label asp-for="EntrenamientoZonaId" class="control-label">Zona de Entrenamiento</label>
                 <select asp-for="EntrenamientoZonaId" class="form-control" asp-items="ViewBag.EntrenamientoZonaId"></select>
                 <span asp-validation-for="EntrenamientoZonaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EntrenamientoEstadoId" class="control-label"></label>
+                <label asp-for="EntrenamientoEstadoId" class="control-label">Estado</label>
                 <select asp-for="EntrenamientoEstadoId" class="form-control" asp-items="ViewBag.EntrenamientoEstadoId"></select>
                 <span asp-validation-for="EntrenamientoEstadoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EntrenamientoCategoriaId" class="control-label"></label>
+                <label asp-for="EntrenamientoCategoriaId" class="control-label">Categoría</label>
                 <select asp-for="EntrenamientoCategoriaId" class="form-control" asp-items="ViewBag.EntrenamientoCategoriaId"></select>
                 <span asp-validation-for="EntrenamientoCategoriaId" class="text-danger"></span>
             </div>
@@ -50,9 +52,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
