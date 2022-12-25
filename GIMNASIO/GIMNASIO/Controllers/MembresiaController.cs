@@ -90,5 +90,16 @@ namespace GIMNASIO.Controllers
             
             return RedirectToAction("ListarMembresia", C);
         }
+
+        public async Task<IActionResult> EliminarMembresia(int MembresiaId, string ClienteId)
+        {
+            var Membresia = _context.tblMembresia.Where(m => m.MembresiaId == MembresiaId).FirstOrDefault();
+            var C = _context.Users.Where(c => c.Id == ClienteId).FirstOrDefault();
+            _context.Entry(Membresia).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
+            TempData["Mensaje"] = "Membresía Eliminada Exitosamente!";
+            return RedirectToAction("ListarMembresia", C);
+        }
+
     }
 }
