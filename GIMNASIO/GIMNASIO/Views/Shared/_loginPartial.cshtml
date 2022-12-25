@@ -4,11 +4,11 @@
 @inject SignInManager<Cliente> signInManager
 @inject UserManager<Cliente> userManager
 
-<ul class="nav justify-content-end badge-primary" style="height:20px;">
+<ul class="nav justify-content-end badge-primary">
 
     @if (signInManager.IsSignedIn(User))
     {
-        <li class="nav-item badge-primary text-white" style="height: 20px">
+        <li class="nav-item badge-primary text-white pr-1" style="height: 20px">
             Bienvenido: @userManager.GetUserName(User)
         </li>
         <li class="nav-item" style="height: 20px;">
@@ -18,8 +18,8 @@
     }
     else
     {
-        <li class="nav-item  text-white" style="height: 20px;">
-            <a style="height:20px;margin-right:10px;" class="text-white" asp-action="Login" asp-controller="Account"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesion</a>
+        <li class="nav-item  text-white">
+            <a class="text-white ml-1" asp-action="Login" asp-controller="Account"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesion</a>
         </li>
     }
 </ul>
