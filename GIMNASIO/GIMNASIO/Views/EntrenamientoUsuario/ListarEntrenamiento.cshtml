@@ -22,30 +22,31 @@
 
 
 
-        <div class="col-md-3 mr-3 ml-3 mb-3">
+        
             @foreach (var E in Model.ListarEntrenamiento)
             {
+                <div class="col-md-12 col-lg-3 mr-3 ml-3 mb-3">
+                    <div class="card card-producto" style="width: 18rem;">
+                        <div class="card-body">
+                            <P class="card-text detalles-card-producto">ID: @E.EntrenamientoId</P>
+                            <P class="card-text detalles-card-producto">Cupo Total: @E.EntrenamientoCupoTotal</P>
+                            <P class="card-text detalles-card-producto">Cupo Disponible: @E.EntrenamientoCupoDisponible</P>
+                            <P class="card-text detalles-card-producto">Cupo Descripcion: @E.EntrenamientoDescripcion</P>
+                            <P class="card-text detalles-card-producto">Cupo Estado: @E.entrenamientoestado.Entrenamiento_NombreEstado</P>
+                            <P class="card-text detalles-card-producto">Cupo Categoria: @E.entrenamientocategoria.EntrenamientoCategoria_Nombre</P>
+                            <P class="card-text detalles-card-producto">Cupo Zona de entrenamiento: @E.entrenamientozona.EntrenamientoZona_Nombre</P>
+                        </div>
 
-                <div class="card card-producto" style="width: 18rem;">
-                    <div class="card-body">
-                        <P class="card-text detalles-card-producto">ID: @E.EntrenamientoId</P>
-                        <P class="card-text detalles-card-producto">Cupo Total: @E.EntrenamientoCupoTotal</P>
-                        <P class="card-text detalles-card-producto">Cupo Disponible: @E.EntrenamientoCupoDisponible</P>
-                        <P class="card-text detalles-card-producto">Cupo Descripcion: @E.EntrenamientoDescripcion</P>
-                        <P class="card-text detalles-card-producto">Cupo Estado: @E.entrenamientoestado.Entrenamiento_NombreEstado</P>
-                        <P class="card-text detalles-card-producto">Cupo Categoria: @E.entrenamientocategoria.EntrenamientoCategoria_Nombre</P>
-                        <P class="card-text detalles-card-producto">Cupo Zona de entrenamiento: @E.entrenamientozona.EntrenamientoZona_Nombre</P>
-                    </div>
-
-                    <div class="row justify-content-around botones-productos">
-                        <div class="col-4">
-                            <a class="btn btn-success" asp-action="EntrenamiendoAnadir" asp-controller="EntrenamientoUsuario" asp-route-EntrenamientoId="@E.EntrenamientoId">
-                                <i class="fa-solid fa-cart-arrow-down"></i>
-                            </a>
+                        <div class="row justify-content-around botones-productos">
+                            <div class="col-4">
+                                <a class="btn btn-success" asp-action="EntrenamiendoAnadir" asp-controller="EntrenamientoUsuario" asp-route-EntrenamientoId="@E.EntrenamientoId">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             }
-        </div>
+        
     </div>
 </div>
