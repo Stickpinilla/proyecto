@@ -3,7 +3,7 @@
 <div class="container text-center">
     <h2>Entrenamientos</h2>
     <hr>
-    <a asp-controller="Entrenamiento" asp-action="CrearEntrenamiento" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar Entrenamiento</a>
+    <a asp-controller="Entrenamiento" asp-action="CrearEntrenamiento" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
 </div>
 <br />
 
@@ -18,7 +18,7 @@
 }
 
 <br />
-<table class="table">
+<table class="table table-striped table-responsive-lg ">
     <thead>
         <tr>
             <th>
@@ -26,9 +26,6 @@
             </th>
             <th>
                 Cupo disponible
-            </th>
-            <th>
-                Descripción
             </th>
             <th>
                 Zona de Entrenamiento
@@ -39,36 +36,46 @@
             <th>
                 Categoria
             </th>
-            <th></th>
+            <th>
+                Editar
+            </th>
+            <th>
+                Eliminar
+            </th>
+            <th>
+                Detalles
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var E in Model.ListarEntrenamiento)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => E.EntrenamientoCupoTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => E.EntrenamientoCupoDisponible)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => E.EntrenamientoDescripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => E.entrenamientozona.EntrenamientoZona_Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => E.entrenamientoestado.Entrenamiento_NombreEstado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => E.entrenamientocategoria.EntrenamientoCategoria_Nombre)
-                </td>
-                <td>
-                    <a asp-action="ModificarEntrenamiento" asp-route-EntrenamientoId="@E.EntrenamientoId">Editar</a>
-                    <a asp-action="EliminarEntrenamiento" asp-route-EntrenamientoId="@E.EntrenamientoId">Eliminar</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => E.EntrenamientoCupoTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => E.EntrenamientoCupoDisponible)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => E.entrenamientozona.EntrenamientoZona_Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => E.entrenamientoestado.Entrenamiento_NombreEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => E.entrenamientocategoria.EntrenamientoCategoria_Nombre)
+            </td>
+            <td>
+                <a asp-action="ModificarEntrenamiento" class="btn btn-warning" asp-route-EntrenamientoId="@E.EntrenamientoId">Editar</a>
+            </td>
+            <td>
+                <a asp-action="EliminarEntrenamiento" class="btn btn-danger" asp-route-EntrenamientoId="@E.EntrenamientoId">Eliminar</a>
+            </td>
+            <td>
+                <a asp-action="DetalleEntrenamiento" class="btn btn-primary" asp-route-EntrenamientoId="@E.EntrenamientoId">Detalles</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
