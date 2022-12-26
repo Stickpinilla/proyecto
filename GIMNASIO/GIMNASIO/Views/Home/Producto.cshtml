@@ -1,4 +1,10 @@
-﻿<div class="container">
+﻿@using GIMNASIO.Models
+@using Microsoft.AspNetCore.Identity
+@inject AppDbContext _context
+@inject SignInManager<Cliente> signInManager
+@inject UserManager<Cliente> userManager
+
+<div class="container">
     @model ICollection<Producto>
 
 
@@ -8,18 +14,37 @@
             <div class="card border border-0">
                 <div class="row no-gutters">
                     <div class="col-md-7">
-                        <img src="~/imagen/@P.imagen" class="card-img-top" height="350" width="300" alt="...">
+                        <img src="~/imagen/@P.imagen" class="card-img"style="height:600px;" alt="...">
                     </div>
                     <div class="col-md-5">
                         <div class="card-title">
-                            <h5  class="card-title">@P.ProductoNombre</h5>
+                            <h5 class="card-title">@P.ProductoNombre</h5>
                             <p>Descripción: @P.ProductoDesc</p>
                             <p>Categoria: @P.Categoria.Nombre</p>
                             <p>
                                 Precio:
                                 @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.ProductoPrecio)
                             </p>
-                            <p> <a asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId" class="btn btn-success">Agregar Al Carro</a></p>
+                            <!--control de roles para boton agregar al carro-->
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                var Acceso = User.Claims.Where(x => x.Type == "Admin").FirstOrDefault();
+                                if (Acceso != null)
+                                {
+
+                                    <p> <a asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId" class="btn btn-success">Agregar Al Carro</a></p>
+                                }
+                            }
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                var Acceso = User.Claims.Where(x => x.Type == "Entrenador").FirstOrDefault();
+                                if (Acceso != null)
+                                {
+                                    <p> <a asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId" class="btn btn-success">Agregar Al Carro</a></p>
+
+                                }
+                            }
+
                         </div>
                     </div>
                 </div>

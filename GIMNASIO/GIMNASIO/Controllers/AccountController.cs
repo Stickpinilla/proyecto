@@ -233,7 +233,7 @@ namespace GIMNASIO.Controllers
         //Listar Pedidos para el admin u entrenador
         public IActionResult ListarPedidos()
         {
-            var P = _context.tblPedido
+            var P = _context.tblPedido.OrderByDescending(c => c.PedidoFecha)
                 .Include(c => c.Cliente)
                 .Include(e => e.PedidoEstado)
                 .ToList();
