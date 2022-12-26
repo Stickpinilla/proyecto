@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -12,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace GIMNASIO.Controllers
 {
-    [Authorize(Policy = "PolicyCliente")]
     public class EntrenamientoUsuarioController : Controller
     {
         private readonly AppDbContext _context;
@@ -58,7 +58,7 @@ namespace GIMNASIO.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-                TempData["Mensaje"] = "Maquinaria Agregado Exitosamente!";
+                TempData["Mensaje"] = "Inscripción Exitosa!";
                 return RedirectToAction(nameof(ListarEntrenamiento));
             }
             return View(EN);
@@ -81,6 +81,8 @@ namespace GIMNASIO.Controllers
             };
             return View(EU);
         }
+
+        
 
 
 
