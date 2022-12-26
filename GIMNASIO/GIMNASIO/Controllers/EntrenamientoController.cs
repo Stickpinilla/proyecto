@@ -88,7 +88,7 @@ namespace GIMNASIO.Controllers
         }
 
         //Editar Entrenamiento  
-       public IActionResult ModificarEntrenamiento(int EntrenamientoId)
+        public IActionResult ModificarEntrenamiento(int EntrenamientoId)
         {
             ViewData["EntrenamientoZonaId"] = new SelectList(_context.tblEntrenamientoZona.ToList(), "EntrenamientoZonaId", "EntrenamientoZona_Nombre");
             ViewData["EntrenamientoEstadoId"] = new SelectList(_context.tblEntrenamientoEstado.ToList(), "EntrenamientoEstadoId", "Entrenamiento_NombreEstado");
@@ -120,7 +120,7 @@ namespace GIMNASIO.Controllers
 
                 ZonaActual.EntrenamientoZona_Disponibilidad = true;
                 ZonaNueva.EntrenamientoZona_Disponibilidad = false;
-                
+
                 await _context.SaveChangesAsync();
                 TempData["Mensaje"] = "Entrenamiento Modificado Exitosamente!";
                 return RedirectToAction(nameof(ListarEntrenamiento));
@@ -147,6 +147,34 @@ namespace GIMNASIO.Controllers
                 .Where(eu => eu.EntrenamientoId == EntrenamientoId && eu.Cliente.Tipo == "Cliente")
                 .ToList();
             return View(euvm);
+        }
+
+        public async Task<IActionResult> EliminarClienteDeEntrenamiento(int EntrenamientoId, string ClienteId)
+        {
+            var EntrenamientoUsuario = _context.tblEntrenamientoUsuario
+                .Include(eu => eu.entrenamiento)
+                .Include(eu => eu.Cliente)
+                .Where(eu => eu.Cliente.Id == ClienteId && eu.entrenamiento.EntrenamientoId == EntrenamientoId)
+                .FirstOrDefault();
+            _context.Entry(EntrenamientoUsuario).State = EntityState.Deleted;
+
+            var Entrenamiento = _context.tblEntrenamiento.Where(e => e.EntrenamientoId == EntrenamientoId).FirstOrDefault();
+            Entrenamiento.EntrenamientoCupoDisponible++;
+
+            if (Entrenamiento.EntrenamientoCupoDisponible > 10)
+            {
+                Entrenamiento.EntrenamientoEstadoId = 1;
+            }
+            if (Entrenamiento.EntrenamientoCupoDisponible > 0 && Entrenamiento.EntrenamientoCupoDisponible <= 10)
+            {
+                Entrenamiento.EntrenamientoEstadoId = 2;
+            }
+
+
+            await _context.SaveChangesAsync();
+            TempData["Mensaje"] = "Cliente Borrado del Entrenamiento!";
+            return RedirectToAction("DetalleEntrenamiento", new { EntrenamientoId = EntrenamientoId });
+
         }
 
     }
