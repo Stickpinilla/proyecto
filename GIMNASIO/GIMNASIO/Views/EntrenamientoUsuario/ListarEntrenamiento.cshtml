@@ -22,11 +22,11 @@
 
 
 
-        <div class="row justify-content-between">
+        <div class="col-md-3 mr-3 ml-3 mb-3">
             @foreach (var E in Model.ListarEntrenamiento)
             {
 
-                <div class="card card-producto col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">
+                <div class="card card-producto" style="width: 18rem;">
                     <div class="card-body">
                         <P class="card-text detalles-card-producto">ID: @E.EntrenamientoId</P>
                         <P class="card-text detalles-card-producto">Cupo Total: @E.EntrenamientoCupoTotal</P>
