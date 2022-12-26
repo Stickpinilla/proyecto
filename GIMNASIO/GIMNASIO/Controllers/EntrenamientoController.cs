@@ -1,5 +1,6 @@
 ﻿using GIMNASIO.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,14 @@ namespace GIMNASIO.Controllers
     {
 
         private readonly AppDbContext _context;
+        private readonly UserManager<Cliente> _userManager;
+        private readonly SignInManager<Cliente> _signInManager;
 
-        public EntrenamientoController(AppDbContext context)
+        public EntrenamientoController(UserManager<Cliente> userManager, SignInManager<Cliente> signInManager, AppDbContext context)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult ListarEntrenamiento(EventArgs e)
@@ -44,12 +49,51 @@ namespace GIMNASIO.Controllers
         [HttpPost]
         public async Task<IActionResult> CrearEntrenamiento(Entrenamiento E)
         {
+            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             {
+                E.Cliente = Cliente;
                 E.EntrenamientoCupoDisponible = E.EntrenamientoCupoTotal;
                 _context.Add(E);
                 var ZonaEntrenamiento = _context.tblEntrenamientoZona
                     .Where(z => z.EntrenamientoZonaId == E.EntrenamientoZonaId)
+                    .FirstOrDefault();
+                ZonaEntrenamiento.EntrenamientoZona_Disponibilidad = false;
+                await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Maquinaria Agregado Exitosamente!";
+                return RedirectToAction(nameof(ListarEntrenamiento));
+            }
+            return View(E);
+        }
+
+
+
+        public IActionResult CrearEntrenamientoAdmin()
+        {
+            ViewData["EntrenadorId"] = new SelectList(_context.Users.Where(t => t.Tipo == "Entrenador").ToList(), "Id", "Rut");
+            ViewData["EntrenamientoZonaId"] = new SelectList(_context.tblEntrenamientoZona.Where(z => z.EntrenamientoZona_Disponibilidad == true).ToList(), "EntrenamientoZonaId", "EntrenamientoZona_Nombre");
+            ViewData["EntrenamientoEstadoId"] = new SelectList(_context.tblEntrenamientoEstado.ToList(), "EntrenamientoEstadoId", "Entrenamiento_NombreEstado");
+            ViewData["EntrenamientoCategoriaId"] = new SelectList(_context.tblEntrenamientoCategoria.ToList(), "EntrenamientoCategoriaId", "EntrenamientoCategoria_Nombre");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CrearEntrenamientoAdmin(EntrenamientoUsuarioViewModel E)
+        {
+            Entrenamiento en = new Entrenamiento();
+            if (ModelState.IsValid)
+            {
+                var Cliente = _context.Users.Where(e => e.Id == E.EntrenadorID).FirstOrDefault();
+                en.EntrenamientoCupoDisponible = E.Entrenamiento.EntrenamientoCupoTotal;
+                en.EntrenamientoCupoTotal = E.Entrenamiento.EntrenamientoCupoTotal;
+                en.EntrenamientoDescripcion = E.Entrenamiento.EntrenamientoDescripcion;
+                en.EntrenamientoEstadoId = E.Entrenamiento.EntrenamientoEstadoId;
+                en.EntrenamientoCategoriaId = E.Entrenamiento.EntrenamientoCategoriaId;
+                en.EntrenamientoZonaId = E.Entrenamiento.EntrenamientoZonaId;
+                en.Cliente = Cliente;
+                _context.Add(en);
+                var ZonaEntrenamiento = _context.tblEntrenamientoZona
+                    .Where(z => z.EntrenamientoZonaId == E.Entrenamiento.EntrenamientoZonaId)
                     .FirstOrDefault();
                 ZonaEntrenamiento.EntrenamientoZona_Disponibilidad = false;
                 await _context.SaveChangesAsync();

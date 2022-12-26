@@ -3,7 +3,17 @@
 <div class="container text-center">
     <h2>Entrenamientos</h2>
     <hr>
-    <a asp-controller="Entrenamiento" asp-action="CrearEntrenamiento" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+    @{var Acceso = User.Claims.Where(x => x.Type == "Admin").FirstOrDefault();}
+    @if (Acceso != null)
+    {
+        <a asp-controller="Entrenamiento" asp-action="CrearEntrenamientoAdmin" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+
+    }
+    else
+    {
+        <a asp-controller="Entrenamiento" asp-action="CrearEntrenamiento" class="btn btn-success pb-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+
+    }
 </div>
 <br />
 

@@ -21,5 +21,8 @@ namespace GIMNASIO.Models
         [Display(Name = "Categoria")]
         public int EntrenamientoCategoriaId { get; set; }
         public EntrenamientoCategoria entrenamientocategoria { get; set; }
+
+        public Cliente Cliente { get; set; }
+
     }
 }

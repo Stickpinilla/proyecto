@@ -34,6 +34,11 @@ namespace GIMNASIO.Models
                 .HasOne(p => p.Cliente)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Entrenamiento>()
+               .HasOne(p => p.Cliente)
+               .WithMany()
+               .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Categoria> tblCategorias { get; set; }

@@ -13,5 +13,6 @@ namespace GIMNASIO.Models
 
         public int EntrenamientoId { get; set; }
         public Entrenamiento entrenamiento { get; set; }
+
     }
 }

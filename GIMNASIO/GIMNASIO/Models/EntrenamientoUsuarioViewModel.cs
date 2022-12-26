@@ -12,5 +12,6 @@ namespace GIMNASIO.Models
         public List<EntrenamientoUsuario> ListaEntrenamiento { get; set; }
 
         public Entrenamiento Entrenamiento { get; set; }
+        public string EntrenadorID { get; set; }
     }
 }
