@@ -10,5 +10,7 @@ namespace GIMNASIO.Models
         public Cliente cliente { get; set; }
 
         public List<EntrenamientoUsuario> ListaEntrenamiento { get; set; }
+
+        public Entrenamiento Entrenamiento { get; set; }
     }
 }

@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace GIMNASIO.Controllers
 {
-    [Authorize(Policy = "PolicyEntrenador")]
     public class EntrenamientoController : Controller
     {
 
@@ -28,14 +27,15 @@ namespace GIMNASIO.Controllers
             listaren.ListarEntrenamiento = _context.tblEntrenamiento
                 .Include(e => e.entrenamientocategoria)
                .Include(e => e.entrenamientoestado)
-               .Include(e => e.entrenamientozona).ToList();
+               .Include(e => e.entrenamientozona)
+               .ToList();
             return View(listaren);
         }
 
 
         public IActionResult CrearEntrenamiento()
         {
-            ViewData["EntrenamientoZonaId"] = new SelectList(_context.tblEntrenamientoZona.ToList(), "EntrenamientoZonaId", "EntrenamientoZona_Nombre");
+            ViewData["EntrenamientoZonaId"] = new SelectList(_context.tblEntrenamientoZona.Where(z => z.EntrenamientoZona_Disponibilidad == true).ToList(), "EntrenamientoZonaId", "EntrenamientoZona_Nombre");
             ViewData["EntrenamientoEstadoId"] = new SelectList(_context.tblEntrenamientoEstado.ToList(), "EntrenamientoEstadoId", "Entrenamiento_NombreEstado");
             ViewData["EntrenamientoCategoriaId"] = new SelectList(_context.tblEntrenamientoCategoria.ToList(), "EntrenamientoCategoriaId", "EntrenamientoCategoria_Nombre");
             return View();
@@ -46,6 +46,7 @@ namespace GIMNASIO.Controllers
         {
             if (ModelState.IsValid)
             {
+                E.EntrenamientoCupoDisponible = E.EntrenamientoCupoTotal;
                 _context.Add(E);
                 var ZonaEntrenamiento = _context.tblEntrenamientoZona
                     .Where(z => z.EntrenamientoZonaId == E.EntrenamientoZonaId)
@@ -130,6 +131,23 @@ namespace GIMNASIO.Controllers
             }
         }
 
+        public IActionResult DetalleEntrenamiento(int EntrenamientoId)
+        {
+            EntrenamientoUsuarioViewModel euvm = new EntrenamientoUsuarioViewModel();
+
+            euvm.Entrenamiento = _context.tblEntrenamiento
+               .Include(e => e.entrenamientocategoria)
+               .Include(e => e.entrenamientoestado)
+               .Include(e => e.entrenamientozona)
+               .Where(e => e.EntrenamientoId == EntrenamientoId)
+               .FirstOrDefault();
+
+            euvm.ListaEntrenamiento = _context.tblEntrenamientoUsuario
+                .Include(eu => eu.Cliente)
+                .Where(eu => eu.EntrenamientoId == EntrenamientoId && eu.Cliente.Tipo == "Cliente")
+                .ToList();
+            return View(euvm);
+        }
 
     }
 }

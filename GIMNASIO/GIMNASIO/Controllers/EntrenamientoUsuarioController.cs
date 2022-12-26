@@ -33,7 +33,7 @@ namespace GIMNASIO.Controllers
             listaren.ListarEntrenamiento = _context.tblEntrenamiento
                 .Include(e => e.entrenamientocategoria)
                .Include(e => e.entrenamientoestado)
-               .Include(e => e.entrenamientozona).Where(e => e.EntrenamientoCupoDisponible > 0).ToList();
+               .Include(e => e.entrenamientozona).Where(e => e.EntrenamientoEstadoId == 1 && e.EntrenamientoCupoDisponible > 0).ToList();
             return View(listaren);
         }
 
@@ -50,7 +50,7 @@ namespace GIMNASIO.Controllers
                 Entrenamiento.EntrenamientoCupoDisponible--;
                 if (Entrenamiento.EntrenamientoCupoDisponible <= 10)
                 {
-                    Entrenamiento.EntrenamientoEstadoId = 1002;
+                    Entrenamiento.EntrenamientoEstadoId = 2;
                 }
                 if (Entrenamiento.EntrenamientoCupoDisponible == 0)
                 {
