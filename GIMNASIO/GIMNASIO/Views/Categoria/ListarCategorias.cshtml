@@ -1,12 +1,13 @@
 ﻿@model ICollection<Categoria>
 
-<h1>Listado de Categorias</h1>
 
-<h4>Categoria</h4>
-<br />
-<a asp-controller="Categoria" asp-action="CrearCategorias" class="white-text">
-    <i type="button" class="btn btn-success">Crear Categoria</i>
-</a>
+<div class="container text-center">
+    <h2>Lista de Categorias</h2>
+    <hr>
+    <a asp-controller="Categoria" asp-action="CrearCategorias" class="white-text btn btn-success">
+        Crear
+    </a>
+</div>
 
 <br />
 @if (TempData["Mensaje"] != null)
@@ -21,11 +22,11 @@
 <br />
 
 
-<div class="row justify-content-between">
-    <table class="table">
-        <thead class="thead-dark">
+<div class="container">
+    <table class="table table-striped table-responsive-lg ">
+        <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Id</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Eliminar</th>
                 <th scope="col">Modificar</th>
@@ -38,15 +39,16 @@
                     <th scope="row">@C.CategoriaId</th>
                     <td>@C.Nombre</td>
                     <td>
-                        <a asp-action="EliminarCategoria" asp-route-CategoriaId="@C.CategoriaId" class="white-text">
-                            <i type="button" class="btn btn-danger">Eliminar</i>
+                        <a asp-action="EditarCategorias" asp-route-CategoriaId="@C.CategoriaId" class="white-text btn btn-warning">
+                            Editar
                         </a>
                     </td>
                     <td>
-                        <a asp-action="EditarCategorias" asp-route-CategoriaId="@C.CategoriaId" class="white-text">
-                            <i type="button" class="btn btn-primary">Modificar</i>
+                        <a asp-action="EliminarCategoria" class="btn btn-danger text-white" asp-route-CategoriaId="@C.CategoriaId">
+                            Eliminar
                         </a>
                     </td>
+                    
 
                 </tr>
             }
@@ -54,8 +56,4 @@
     </table>
 </div>
 
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
