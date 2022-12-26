@@ -33,7 +33,7 @@ namespace GIMNASIO.Controllers
             listaren.ListarEntrenamiento = _context.tblEntrenamiento
                 .Include(e => e.entrenamientocategoria)
                .Include(e => e.entrenamientoestado)
-               .Include(e => e.entrenamientozona).Where(e => e.EntrenamientoEstadoId == 1 && e.EntrenamientoCupoDisponible > 0).ToList();
+               .Include(e => e.entrenamientozona).Where(e => (e.EntrenamientoEstadoId == 1 || e.EntrenamientoEstadoId == 2) && e.EntrenamientoCupoDisponible > 0).ToList();
             return View(listaren);
         }
 
