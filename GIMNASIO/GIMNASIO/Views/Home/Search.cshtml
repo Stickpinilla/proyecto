@@ -1,4 +1,11 @@
-﻿@model IndexViewModel
+﻿@using GIMNASIO.Models
+@using Microsoft.AspNetCore.Identity
+@inject AppDbContext _context
+@inject SignInManager<Cliente> signInManager
+@inject UserManager<Cliente> userManager
+@inject AppDbContext _context
+
+@model IndexViewModel
 
 <div class="container">
 
@@ -40,11 +47,33 @@
                 </div>
 
                 <div class="row justify-content-around botones-productos">
-                    <div class="col-4">
-                        <a class="btn btn-success" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId">
-                            <i class="fa-solid fa-cart-arrow-down"></i>
-                        </a>
-                    </div>
+                    <!--control de roles para boton agregar al carro-->
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        var Acceso = User.Claims.Where(x => x.Type == "Admin").FirstOrDefault();
+                        if (Acceso != null)
+                        {
+                            <div class="col-4">
+                                <a class="btn btn-success" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>
+                                </a>
+                            </div>
+
+                        }
+                    }
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        var Acceso = User.Claims.Where(x => x.Type == "Entrenador").FirstOrDefault();
+                        if (Acceso != null)
+                        {
+                            <div class="col-4">
+                                <a class="btn btn-success" asp-action="Add" asp-controller="Carro" asp-route-ProductoId="@P.ProductoId">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>
+                                </a>
+                            </div>
+
+                        }
+                    }
                     <div class="col-4">
                         <a class="btn btn-primary" asp-controller="Home" asp-action="Producto" asp-route-ProductoId="@P.ProductoId">
                             <i class="fa-solid fa-list"></i>
