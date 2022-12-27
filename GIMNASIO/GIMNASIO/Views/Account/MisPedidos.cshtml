@@ -19,10 +19,10 @@
                     <td>Rut</td>
                     <td>Nombre</td>
                     <td>Apellido</td>
-                    <td>Direccion</td>
+                    <td>Dirección</td>
                     <td>Correo</td>
                     <td>Ciudad</td>
-                    <td>Telefono</td>
+                    <td>Teléfono</td>
                 </tr>
             </thead>
             <tbody>
@@ -47,14 +47,14 @@
                 <div class="card mr-3 ml-3 mb-3" style="width: 18rem;">
                     <div class="card" style="width: 18rem;">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Numero Pedido: </strong>@P.PedidoId</li>
+                            <li class="list-group-item"><strong>Número Pedido: </strong>@P.PedidoId</li>
                             <li class="list-group-item"><strong>Fecha: </strong>@P.PedidoFecha</li>
                             <li class="list-group-item">
                                 <strong>Total: </strong>
                                 @string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", P.PedidoTotal)
                             </li>
                             <li class="list-group-item"><strong>Estado: </strong>@P.PedidoEstado.PedidoEstadoNombre</li>
-                            <li class="list-group-item"><strong>Metodo de Pago: </strong>@P.MetodoPago.MetodoNombre</li>
+                            <li class="list-group-item"><strong>Método de Pago: </strong>@P.MetodoPago.MetodoNombre</li>
                             <li class="list-group-item">
                                 <strong>Ver Producto: </strong>
                                 <a asp-action="DetallePedido" asp-route-PedidoId="@P.PedidoId" class="mr-3"><i class="fas fa-info-circle"></i></a>

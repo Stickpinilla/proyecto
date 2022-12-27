@@ -25,13 +25,12 @@
     <table class="table table-striped">
         <thead style="background-color:#00ffff">
             <tr>
-                <td>Codigo</td>
+                <td>Código</td>
                 <td>Producto</td>
                 <td>Equipo</td>
                 <td>Precio Unitario</td>
                 <td>Cantidad</td>
                 <td>Subtotal</td>
-                <td>comprarlo nuevamente</td>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +43,6 @@
                     <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Producto.ProductoPrecio)</td>
                     <td>@item.Cantidad</td>
                     <td>@string.Format(new System.Globalization.CultureInfo("es-CL"), "{0:C}", item.Cantidad * item.Producto.ProductoPrecio)</td>
-                    <td> <a style="height:20px;" class="text-info" asp-controller="Cliente" asp-action="Producto" asp-route-ProductoId="@item.ProductoId">Volver a Comprar</a></td>
                 </tr>
             }
         </tbody>
