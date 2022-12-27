@@ -97,7 +97,7 @@ namespace GIMNASIO.Controllers
                     .FirstOrDefault();
                 ZonaEntrenamiento.EntrenamientoZona_Disponibilidad = false;
                 await _context.SaveChangesAsync();
-                TempData["Mensaje"] = "Maquinaria Agregado Exitosamente!";
+                TempData["Mensaje"] = "Entrenamiento Agregado Exitosamente!";
                 return RedirectToAction(nameof(ListarEntrenamiento));
             }
             return View(E);
