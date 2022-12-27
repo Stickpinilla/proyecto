@@ -5,7 +5,12 @@
 }
 
 
-<h3>¿Esta seguro de eliminar el entrenamiento?</h3>
+<div class="container text-center">
+    <h2>Eliminar Entrenamiento</h2>
+    <h3>¿Está seguro de eliminar este entrenamiento? Si lo elimina no podrá recuperarlo.</h3>
+    <hr>
+</div>
+
 <div>
     <hr />
     <dl class="row">
@@ -50,6 +55,6 @@
     <form asp-action="EliminarEntrenamiento">
         <input type="hidden" asp-for="EntrenamientoId" />
         <input type="hidden" asp-for="EntrenamientoZonaId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
     </form>
 </div>
