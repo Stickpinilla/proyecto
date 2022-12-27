@@ -47,9 +47,6 @@
                 Categoria
             </th>
             <th>
-                Editar
-            </th>
-            <th>
                 Eliminar
             </th>
             <th>
@@ -75,9 +72,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => E.entrenamientocategoria.EntrenamientoCategoria_Nombre)
-            </td>
-            <td>
-                <a asp-action="ModificarEntrenamiento" class="btn btn-warning" asp-route-EntrenamientoId="@E.EntrenamientoId">Editar</a>
             </td>
             <td>
                 <a asp-action="EliminarEntrenamiento" class="btn btn-danger" asp-route-EntrenamientoId="@E.EntrenamientoId">Eliminar</a>
