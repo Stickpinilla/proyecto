@@ -73,10 +73,11 @@ namespace GIMNASIO.Controllers
             {
                 cliente = Cliente,
                 ListaEntrenamiento = _context.tblEntrenamientoUsuario
-                .Where(e => e.Cliente.Id == Cliente.Id)
                 .Include(c => c.entrenamiento.entrenamientocategoria)
                .Include(e => e.entrenamiento.entrenamientoestado)
+               .Include(e => e.entrenamiento.Cliente)
                .Include(e => e.entrenamiento.entrenamientozona)
+               .Where(e => e.Cliente.Id == Cliente.Id)
                .ToList()
             };
             return View(EU);

@@ -183,6 +183,7 @@ namespace GIMNASIO.Controllers
                .Include(e => e.entrenamientocategoria)
                .Include(e => e.entrenamientoestado)
                .Include(e => e.entrenamientozona)
+               .Include(e=> e.Cliente)
                .Where(e => e.EntrenamientoId == EntrenamientoId)
                .FirstOrDefault();
 

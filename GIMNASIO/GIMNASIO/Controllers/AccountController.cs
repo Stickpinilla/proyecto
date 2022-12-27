@@ -331,6 +331,21 @@ namespace GIMNASIO.Controllers
             };
         }
 
+        //empieza mis Avances
+        public async Task<IActionResult> MisAvances()
+        {
+            var Cliente = await _userManager.GetUserAsync(HttpContext.User);
+            MisAvancesViewModel avance = new MisAvancesViewModel
+            {
+                cliente = Cliente,
+                ListaAvances = _context.tblAvanceCliente
+                .OrderByDescending(e=> e.AvanceCliente_Fecha)
+                .Where(P => P.Cliente.Id == Cliente.Id).ToList()
+            };
+            return View(avance);
+        }
+
+
 
 
 

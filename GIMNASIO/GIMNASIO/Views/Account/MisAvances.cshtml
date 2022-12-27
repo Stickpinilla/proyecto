@@ -1,0 +1,51 @@
+﻿<div class="container">
+    @using GIMNASIO.Models
+    @using Microsoft.AspNetCore.Identity
+
+    @model MisAvancesViewModel
+    @inject SignInManager<Cliente> signInManager
+    @inject UserManager<Cliente> userManager
+
+
+
+
+    <table class="table table-striped">
+        <thead style="background-color:#00ffff">
+            <tr>
+                <td>Rut</td>
+                <td>Nombre</td>
+                <td>Apellido Paterno</td>
+                <td>Direccion Materno</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.cliente.Rut</td>
+                <td>@Model.cliente.Nombres</td>
+                <td>@Model.cliente.ApellidoP</td>
+                <td>@Model.cliente.ApellidoM</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <Br />
+    <div class="row justify-content-between">
+        @foreach (var P in Model.ListaAvances)
+        {
+        <div class="card mr-3 ml-3 mb-3" style="width: 18rem;">
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> Altura: @P.AvanceCliente_Altura</li>
+                    <li class="list-group-item"> Peso: @P.AvanceCliente_Peso</li>
+                    <li class="list-group-item"> IMC: @P.AvanceCliente_IMC</li>
+                    <li class="list-group-item"> Situación: @P.AvanceCliente_Situacion</li>
+                    <li class="list-group-item"> Fecha del control: @Html.DisplayFor(p => P.AvanceCliente_Fecha)</li>
+
+                </ul>
+            </div>
+        </div>
+        }
+    </div>
+
+
+</div>
