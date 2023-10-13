@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GIMNASIO.Migrations
 {
-    public partial class migracion1 : Migration
+    public partial class migrationhost : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -367,11 +367,18 @@ namespace GIMNASIO.Migrations
                     EntrenamientoDescripcion = table.Column<string>(nullable: true),
                     EntrenamientoZonaId = table.Column<int>(nullable: false),
                     EntrenamientoEstadoId = table.Column<int>(nullable: false),
-                    EntrenamientoCategoriaId = table.Column<int>(nullable: false)
+                    EntrenamientoCategoriaId = table.Column<int>(nullable: false),
+                    ClienteId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblEntrenamiento", x => x.EntrenamientoId);
+                    table.ForeignKey(
+                        name: "FK_tblEntrenamiento_AspNetUsers_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tblEntrenamiento_tblEntrenamientoCategoria_EntrenamientoCategoriaId",
                         column: x => x.EntrenamientoCategoriaId,
@@ -442,7 +449,7 @@ namespace GIMNASIO.Migrations
                         column: x => x.ClienteId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tblPedido_tblMetodoPago_MetodoPagoId",
                         column: x => x.MetodoPagoId,
@@ -506,7 +513,7 @@ namespace GIMNASIO.Migrations
                         column: x => x.ClienteId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tblMembresia_tblEstadoMembresia_EstadoMembresiaId",
                         column: x => x.EstadoMembresiaId,
@@ -623,7 +630,7 @@ namespace GIMNASIO.Migrations
                         column: x => x.ClienteId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tblMantencion_tblEstadoMantencion_EstadoMantencionId",
                         column: x => x.EstadoMantencionId,
@@ -686,6 +693,11 @@ namespace GIMNASIO.Migrations
                 name: "IX_tblCarroItem_ProductoId",
                 table: "tblCarroItem",
                 column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblEntrenamiento_ClienteId",
+                table: "tblEntrenamiento",
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEntrenamiento_EntrenamientoCategoriaId",

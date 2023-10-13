@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIMNASIO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221223035056_MIGRATION3")]
-    partial class MIGRATION3
+    [Migration("20231012175148_migration-host")]
+    partial class migrationhost
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -193,6 +193,9 @@ namespace GIMNASIO.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ClienteId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("EntrenamientoCategoriaId")
                         .HasColumnType("int");
 
@@ -212,6 +215,8 @@ namespace GIMNASIO.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EntrenamientoId");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("EntrenamientoCategoriaId");
 
@@ -773,6 +778,11 @@ namespace GIMNASIO.Migrations
 
             modelBuilder.Entity("GIMNASIO.Models.Entrenamiento", b =>
                 {
+                    b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("GIMNASIO.Models.EntrenamientoCategoria", "entrenamientocategoria")
                         .WithMany()
                         .HasForeignKey("EntrenamientoCategoriaId")
@@ -809,7 +819,8 @@ namespace GIMNASIO.Migrations
                 {
                     b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GIMNASIO.Models.EstadoMantencion", "EstadoMantencion")
                         .WithMany()
@@ -863,7 +874,8 @@ namespace GIMNASIO.Migrations
                 {
                     b.HasOne("GIMNASIO.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GIMNASIO.Models.MetodoPago", "MetodoPago")
                         .WithMany()
